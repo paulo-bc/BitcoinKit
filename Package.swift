@@ -10,7 +10,7 @@ let package = Package(
         .library(name: "YenomBitcoinKit", targets: ["BitcoinKit"])
     ],
     dependencies: [
-        .package(url: "https://github.com/krzyzanowskim/CryptoSwift.git", .upToNextMajor(from: "1.5.1")),
+        .package(url: "https://github.com/krzyzanowskim/CryptoSwift.git", .upToNextMinor(from: "1.4.2")),
         .package(url: "https://github.com/Boilertalk/secp256k1.swift", .upToNextMinor(from: "0.1.6"))
     ],
     targets: [
