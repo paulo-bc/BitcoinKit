@@ -7,7 +7,7 @@ let package = Package(
         .macOS(.v10_12), .iOS(.v14)
     ],
     products: [
-        .library(name: "BitcoinKit", targets: ["BitcoinKit"])
+        .library(name: "YenomBitcoinKit", targets: ["BitcoinKit"])
     ],
     dependencies: [
         .package(url: "https://github.com/krzyzanowskim/CryptoSwift.git", .upToNextMajor(from: "1.5.1")),
