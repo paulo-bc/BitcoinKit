@@ -26,7 +26,7 @@
 import XCTest
 @testable import YenomBitcoinKit
 
-class LegacyAddressTests: XCTestCase {
+class LegacyAddressTests: BaseTestCase {
     func testAddress() {
         // Mainnet
         do {

@@ -25,13 +25,13 @@
 import Foundation
 
 // Boolean OR between each bit of the inputs
-public struct OpOr: OpCodeProtocol {
-    public var value: UInt8 { return 0x85 }
-    public var name: String { return "OP_OR" }
+struct OpOr: OpCodeProtocol {
+    var value: UInt8 { return 0x85 }
+    var name: String { return "OP_OR" }
 
     // input : x1 x2
     // output : out
-    public func mainProcess(_ context: ScriptExecutionContext) throws {
+    func mainProcess(_ context: ScriptExecutionContext) throws {
         try context.assertStackHeightGreaterThanOrEqual(2)
 
         let x2 = context.stack.removeLast()

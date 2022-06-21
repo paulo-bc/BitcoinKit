@@ -25,7 +25,7 @@
 import XCTest
 @testable import YenomBitcoinKit
 
-class TransactionSignerTests: XCTestCase {
+class TransactionSignerTests: BaseTestCase {
     func testSign() {
         // Transaction on Bitcoin Cash Mainnet
         // TxID : 96ee20002b34e468f9d3c5ee54f6a8ddaa61c118889c4f35395c2cd93ba5bbb4

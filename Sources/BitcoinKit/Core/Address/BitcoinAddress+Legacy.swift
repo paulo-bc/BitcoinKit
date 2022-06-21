@@ -26,7 +26,7 @@ import Foundation
 
 extension BitcoinAddress {
     /// Base58Check encoded bitcoin address format
-    public var legacy: String {
+    var legacy: String {
         switch hashType {
         case .pubkeyHash:
             return Base58Check.encode([network.pubkeyhash] + data)
@@ -45,7 +45,7 @@ extension BitcoinAddress {
     ///
     /// - Parameter legacy: Base58Check encoded String value to use as the source of the new
     ///   instance. It must be without scheme.
-    public init(legacy: String) throws {
+    init(legacy: String) throws {
         // Hash size is 160 bits
         self.hashSize = .bits160
 

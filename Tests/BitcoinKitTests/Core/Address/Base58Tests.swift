@@ -25,7 +25,7 @@
 import XCTest
 @testable import YenomBitcoinKit
 
-class Base58Tests: XCTestCase {
+class Base58Tests: BaseTestCase {
     func testBase58_1() {
         XCTAssertEqual(Base58.decode("1EVEDmVcV7iPvTkaw2gk89yVcCzPzaS6B7")!.hex, "0093f051563b089897cb430602a7c35cd93b3cc8e9dfac9a96")
         XCTAssertEqual(Base58.decode("11ujQcjgoMNmbmcBkk8CXLWQy8ZerMtuN")!.hex, "00002c048b88f56727538eadb2a81cfc350355ee4c466740d9")

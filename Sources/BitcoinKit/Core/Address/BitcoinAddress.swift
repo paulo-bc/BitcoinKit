@@ -37,13 +37,13 @@ import Foundation
 /// let p2pkhAddress = try BitcoinAddress(data: pubkeyHash, type: .pubkeyHash, network: .mainnetBCH)
 /// let p2shAddress = try BitcoinAddress(data: scriptHash, type: .scriptHash, network: .mainnetBCH)
 /// ```
-public struct BitcoinAddress {
-    public let data: Data
-    public let network: Network
+struct BitcoinAddress {
+    let data: Data
+    let network: Network
 
     // Bitcoin Address parameter
-    public let hashType: HashType
-    public let hashSize: HashSize
+    let hashType: HashType
+    let hashSize: HashSize
 
     /// Creates a new BitcoinAddress instance with raw parameters.
     ///
@@ -60,7 +60,7 @@ public struct BitcoinAddress {
     ///   - hashType: .pubkeyHash or .scriptHash
     ///   - network: BitcoinCash network .mainnetBCH or .testnetBCH is expected. But you can
     ///     also use other network.
-    public init(data: Data, hashType: HashType, network: Network) throws {
+    init(data: Data, hashType: HashType, network: Network) throws {
         guard let hashSize = HashSize(sizeInBits: data.count * 8) else {
             throw AddressError.invalidDataSize
         }
@@ -74,7 +74,7 @@ public struct BitcoinAddress {
 }
 
 extension BitcoinAddress: CustomStringConvertible {
-    public var description: String {
+    var description: String {
         switch network {
         case .mainnetBCH, .testnetBCH:
             return cashaddr
@@ -85,13 +85,9 @@ extension BitcoinAddress: CustomStringConvertible {
 }
 
 extension BitcoinAddress: Equatable {
-    public static func == (lhs: BitcoinAddress, rhs: BitcoinAddress) -> Bool {
+    static func == (lhs: BitcoinAddress, rhs: BitcoinAddress) -> Bool {
         return lhs.data == rhs.data
             && lhs.hashType == rhs.hashType
             && lhs.hashSize == rhs.hashSize
     }
 }
-
-#if os(iOS) || os(tvOS) || os(watchOS)
-extension BitcoinAddress: QRCodeConvertible {}
-#endif

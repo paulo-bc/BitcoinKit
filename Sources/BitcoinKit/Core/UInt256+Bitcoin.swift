@@ -25,11 +25,11 @@
 import Foundation
 
 extension UInt256 {
-	public enum CompactError: Error {
+	enum CompactError: Error {
 		case negative, overflow
 	}
 	// bitcoin "compact" format
-	public init(compact: UInt32) throws {
+	init(compact: UInt32) throws {
 		let size: UInt32 = compact >> 24
 		let target: UInt32 = compact & 0x007fffff
 		if target == 0 {

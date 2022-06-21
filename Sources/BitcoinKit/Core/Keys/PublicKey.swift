@@ -25,17 +25,17 @@
 
 import Foundation
 
-public struct PublicKey {
-    public let data: Data
+struct PublicKey {
+    let data: Data
     @available(*, deprecated, renamed: "data")
-    public var raw: Data { return data }
-    public var pubkeyHash: Data {
+    var raw: Data { return data }
+    var pubkeyHash: Data {
         return Crypto.sha256ripemd160(data)
     }
-    public let network: Network
-    public let isCompressed: Bool
+    let network: Network
+    let isCompressed: Bool
 
-    public init(bytes data: Data, network: Network) {
+    init(bytes data: Data, network: Network) {
         self.data = data
         self.network = network
         let header = data[0]
@@ -44,17 +44,13 @@ public struct PublicKey {
 }
 
 extension PublicKey: Equatable {
-    public static func == (lhs: PublicKey, rhs: PublicKey) -> Bool {
+    static func == (lhs: PublicKey, rhs: PublicKey) -> Bool {
         return lhs.network == rhs.network && lhs.data == rhs.data
     }
 }
 
 extension PublicKey: CustomStringConvertible {
-    public var description: String {
+    var description: String {
         return data.hex
     }
 }
-
-#if os(iOS) || os(tvOS) || os(watchOS)
-extension PublicKey: QRCodeConvertible {}
-#endif

@@ -39,7 +39,7 @@ import Foundation
 /// let versionByte = payload[0]
 /// let pubkeyHash = payload.dropFirst()
 /// ```
-public struct Bech32 {
+struct Bech32 {
     internal static let base32Alphabets = "qpzry9x8gf2tvdw0s3jn54khce6mua7l"
 
     /// Encodes the data to Bech32 encoded string
@@ -56,7 +56,7 @@ public struct Bech32 {
     ///   - payload: The data to encode
     ///   - prefix: The prefix of the encoded text. It is also used to create checksum.
     ///   - separator: separator that separates prefix and Base32 encoded text
-    public static func encode(payload: Data, prefix: String, separator: String = ":") -> String {
+    static func encode(payload: Data, prefix: String, separator: String = ":") -> String {
         let payloadUint5 = convertTo5bit(data: payload, pad: true)
         let checksumUint5: Data = createChecksum(prefix: prefix, payload: payloadUint5) // Data of [UInt5]
         let combined: Data = payloadUint5 + checksumUint5 // Data of [UInt5]
@@ -70,7 +70,7 @@ public struct Bech32 {
     }
 
     @available(*, unavailable, renamed: "encode(payload:prefix:separator:)")
-    public static func encode(_ bytes: Data, prefix: String, seperator: String = ":") -> String {
+    static func encode(_ bytes: Data, prefix: String, seperator: String = ":") -> String {
         return encode(payload: bytes, prefix: prefix, separator: seperator)
     }
 
@@ -88,7 +88,7 @@ public struct Bech32 {
     /// - Parameters:
     ///   - string: The data to encode
     ///   - separator: separator that separates prefix and Base32 encoded text
-    public static func decode(_ string: String, separator: String = ":") -> (prefix: String, data: Data)? {
+    static func decode(_ string: String, separator: String = ":") -> (prefix: String, data: Data)? {
         // We can't have empty string.
         // Bech32 should be uppercase only / lowercase only.
         guard !string.isEmpty && [string.lowercased(), string.uppercased()].contains(string) else {
@@ -124,7 +124,7 @@ public struct Bech32 {
         return (prefix, Data(bytes))
     }
     @available(*, unavailable, renamed: "decode(string:separator:)")
-    public static func decode(_ string: String, seperator: String = ":") -> (prefix: String, data: Data)? {
+    static func decode(_ string: String, seperator: String = ":") -> (prefix: String, data: Data)? {
         return decode(string, separator: seperator)
     }
 

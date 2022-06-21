@@ -26,7 +26,7 @@
 import XCTest
 @testable import YenomBitcoinKit
 
-class PrivateKeyTests: XCTestCase {
+class PrivateKeyTests: BaseTestCase {
     func testGenerateKeyPair() {
         let privateKey = PrivateKey(network: .testnetBCH)
         let publicKey = privateKey.publicKey()

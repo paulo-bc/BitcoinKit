@@ -25,7 +25,7 @@
 import XCTest
 @testable import YenomBitcoinKit
 
-class OpCodeTests: XCTestCase {
+class OpCodeTests: BaseTestCase {
     var context: ScriptExecutionContext!
     override func setUp() {
         super.setUp()

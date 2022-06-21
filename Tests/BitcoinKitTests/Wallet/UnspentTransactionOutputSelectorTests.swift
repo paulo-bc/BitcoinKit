@@ -31,7 +31,7 @@ func buildUnspent(_ value: UInt64) -> UnspentTransaction {
     return UnspentTransaction(output: output, outpoint: outpoint)
 }
 
-class UnspentTransactionOutputSelectorTests: XCTestCase {
+class UnspentTransactionOutputSelectorTests: BaseTestCase {
     var unspentTransactions: [UnspentTransaction] = []
     
     override func setUp() {

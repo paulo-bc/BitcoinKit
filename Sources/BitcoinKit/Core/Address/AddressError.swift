@@ -24,7 +24,7 @@
 
 import Foundation
 
-public enum AddressError: Error {
+enum AddressError: Error {
     case invalid
     case invalidScheme
     case invalidVersionByte

@@ -27,12 +27,12 @@ import Foundation
 
 public struct PrivateKey {
     @available(*, deprecated, renamed: "data")
-    public var raw: Data { return data }
-    public let data: Data
-    public let network: Network
-    public let isPublicKeyCompressed: Bool
+    var raw: Data { return data }
+    let data: Data
+    let network: Network
+    let isPublicKeyCompressed: Bool
 
-    public init(network: Network = .testnetBCH, isPublicKeyCompressed: Bool = true) {
+    init(network: Network = .testnetBCH, isPublicKeyCompressed: Bool = true) {
         self.network = network
         self.isPublicKeyCompressed = isPublicKeyCompressed
 
@@ -73,7 +73,7 @@ public struct PrivateKey {
         self.data = key
     }
 
-    public init(wif: String) throws {
+    init(wif: String) throws {
         guard var payload = Base58Check.decode(wif),
             (payload.count == (1 + 32) || payload.count == (1 + 32 + 1)) else {
             throw PrivateKeyError.invalidFormat
@@ -107,23 +107,11 @@ public struct PrivateKey {
         return _SwiftKey.computePublicKey(fromPrivateKey: data, compression: isPublicKeyCompressed)
     }
 
-    public func publicKeyPoint() throws -> PointOnCurve {
-        let xAndY: Data = _SwiftKey.computePublicKey(fromPrivateKey: data, compression: false)
-        let expectedLengthOfScalar = Scalar32Bytes.expectedByteCount
-        let expectedLengthOfKey = expectedLengthOfScalar * 2
-        guard xAndY.count == expectedLengthOfKey else {
-            fatalError("expected length of key is \(expectedLengthOfKey) bytes, but got: \(xAndY.count)")
-        }
-        let x = xAndY.prefix(expectedLengthOfScalar)
-        let y = xAndY.suffix(expectedLengthOfScalar)
-        return try PointOnCurve(x: x, y: y)
-    }
-
-    public func publicKey() -> PublicKey {
+    func publicKey() -> PublicKey {
         return PublicKey(bytes: computePublicKeyData(), network: network)
     }
 
-    public func toWIF() -> String {
+    func toWIF() -> String {
         var payload = Data([network.privatekey]) + data
         if isPublicKeyCompressed {
             // Add extra byte 0x01 in the end.
@@ -132,12 +120,12 @@ public struct PrivateKey {
         return Base58Check.encode(payload)
     }
 
-    public func sign(_ data: Data) -> Data {
+    func sign(_ data: Data) -> Data {
         return try! Crypto.sign(data, privateKey: self)
     }
 
     @available(*, unavailable, message: "Use SignatureHashHelper and sign(_ data: Data) method instead")
-    public func sign(_ tx: Transaction, utxoToSign: UnspentTransaction, hashType: SighashType, inputIndex: Int = 0) -> Data {
+    func sign(_ tx: Transaction, utxoToSign: UnspentTransaction, hashType: SighashType, inputIndex: Int = 0) -> Data {
         let helper: SignatureHashHelper
         if hashType.hasForkId {
             helper = BCHSignatureHashHelper(hashType: BCHSighashType(rawValue: hashType.uint8)!)
@@ -161,10 +149,6 @@ extension PrivateKey: CustomStringConvertible {
     }
 }
 
-#if os(iOS) || os(tvOS) || os(watchOS)
-extension PrivateKey: QRCodeConvertible {}
-#endif
-
-public enum PrivateKeyError: Error {
+enum PrivateKeyError: Error {
     case invalidFormat
 }

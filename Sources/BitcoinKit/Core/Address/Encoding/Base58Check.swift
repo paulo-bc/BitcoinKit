@@ -38,7 +38,7 @@ import Foundation
 /// let versionByte = payload[0]
 /// let pubkeyHash = payload.dropFirst()
 /// ```
-public struct Base58Check {
+struct Base58Check {
     /// Encodes the data to Base58Check encoded string
     ///
     /// Puts checksum bytes to the original data and then, encode the combined
@@ -46,7 +46,7 @@ public struct Base58Check {
     /// ```
     /// let address = Base58Check.encode([versionByte] + pubkeyHash)
     /// ```
-    public static func encode(_ payload: Data) -> String {
+    static func encode(_ payload: Data) -> String {
         let checksum: Data = Crypto.sha256sha256(payload).prefix(4)
         return Base58.encode(payload + checksum)
     }
@@ -58,7 +58,7 @@ public struct Base58Check {
     /// ```
     /// let payload = Base58Check.decode(base58checkText)
     /// ```
-    public static func decode(_ string: String) -> Data? {
+    static func decode(_ string: String) -> Data? {
         guard let raw = Base58.decode(string) else {
             return nil
         }

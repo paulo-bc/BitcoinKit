@@ -26,7 +26,7 @@ import Foundation
 @testable import YenomBitcoinKit
 import XCTest
 
-class DecodePointTests: XCTestCase {
+class DecodePointTests: BaseTestCase {
     func testPointDecoding() {
         do {
             let wifUncompressed = "5K6EwEiKWKNnWGYwbNtrXjA8KKNntvxNKvepNqNeeLpfW7FSG1v"

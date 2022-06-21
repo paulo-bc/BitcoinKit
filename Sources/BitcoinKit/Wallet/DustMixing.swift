@@ -24,16 +24,16 @@
 
 import Foundation
 
-public struct DustMixing {
+struct DustMixing {
 
     /// Unspent transaction.
-    public let unspentTransaction: UnspentTransaction
+    let unspentTransaction: UnspentTransaction
     /// Amount to be received at the other end.
-    public let amount: UInt64
+    let amount: UInt64
     /// OutputScript to send the amount
-    public let outputScript: String
+    let outputScript: String
 
-    public init(unspentTransaction: UnspentTransaction, amount: UInt64, outputScript: String) {
+    init(unspentTransaction: UnspentTransaction, amount: UInt64, outputScript: String) {
         self.unspentTransaction = unspentTransaction
         self.amount = amount
         self.outputScript = outputScript

@@ -32,17 +32,17 @@ import Foundation
 /// // Create a transaction's signature hash for utxos[0].
 /// let sighash: Data = helper.createSignatureHash(of: tx, for: utxos[0].output, inputIndex: 0)
 /// ```
-public struct BTCSignatureHashHelper: SignatureHashHelper {
-    public let zero: Data = Data(repeating: 0, count: 32)
-    public let one: Data = Data(repeating: 1, count: 1) + Data(repeating: 0, count: 31)
+struct BTCSignatureHashHelper: SignatureHashHelper {
+    let zero: Data = Data(repeating: 0, count: 32)
+    let one: Data = Data(repeating: 1, count: 1) + Data(repeating: 0, count: 31)
 
-    public let hashType: SighashType
-    public init(hashType: SighashType.BTC) {
+    let hashType: SighashType
+    init(hashType: SighashType.BTC) {
         self.hashType = hashType
     }
 
     /// Create the transaction input to be signed
-    public func createSigningInput(of txin: TransactionInput, from utxoOutput: TransactionOutput) -> TransactionInput {
+    func createSigningInput(of txin: TransactionInput, from utxoOutput: TransactionOutput) -> TransactionInput {
         let subScript = Script(data: utxoOutput.lockingScript)!
         try! subScript.deleteOccurrences(of: .OP_CODESEPARATOR)
         return TransactionInput(previousOutput: txin.previousOutput,
@@ -51,7 +51,7 @@ public struct BTCSignatureHashHelper: SignatureHashHelper {
     }
 
     /// Create a blank transaction input
-    public func createBlankInput(of txin: TransactionInput) -> TransactionInput {
+    func createBlankInput(of txin: TransactionInput) -> TransactionInput {
         let sequence: UInt32
         if hashType.isNone || hashType.isSingle {
             sequence = 0
@@ -64,7 +64,7 @@ public struct BTCSignatureHashHelper: SignatureHashHelper {
     }
 
     /// Create the transaction inputs
-    public func createInputs(of tx: Transaction, for utxoOutput: TransactionOutput, inputIndex: Int) -> [TransactionInput] {
+    func createInputs(of tx: Transaction, for utxoOutput: TransactionOutput, inputIndex: Int) -> [TransactionInput] {
         // If SIGHASH_ANYONECANPAY flag is set, only the input being signed is serialized
         if hashType.isAnyoneCanPay {
             return [createSigningInput(of: tx.inputs[inputIndex], from: utxoOutput)]
@@ -84,7 +84,7 @@ public struct BTCSignatureHashHelper: SignatureHashHelper {
     }
 
     /// Create the transaction outputs
-    public func createOutputs(of tx: Transaction, inputIndex: Int) -> [TransactionOutput] {
+    func createOutputs(of tx: Transaction, inputIndex: Int) -> [TransactionOutput] {
         if hashType.isNone {
             // Wildcard payee - we can pay anywhere.
             return []
@@ -107,7 +107,7 @@ public struct BTCSignatureHashHelper: SignatureHashHelper {
     ///   - utxoOutput: TransactionOutput to be signed
     ///   - inputIndex: The index of the transaction output to be signed
     /// - Returns: The signature hash for the transaction to be signed.
-    public func createSignatureHash(of tx: Transaction, for utxoOutput: TransactionOutput, inputIndex: Int) -> Data {
+    func createSignatureHash(of tx: Transaction, for utxoOutput: TransactionOutput, inputIndex: Int) -> Data {
         // If inputIndex is out of bounds, BitcoinABC is returning a 256-bit little-endian 0x01 instead of failing with error.
         guard inputIndex < tx.inputs.count else {
             //  tx.inputs[inputIndex] out of range

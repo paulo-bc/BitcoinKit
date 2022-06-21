@@ -121,7 +121,7 @@ extension Data {
 }
 
 extension Data {
-    public var hex: String {
+    var hex: String {
         return reduce("") { $0 + String(format: "%02x", $1) }
     }
 }

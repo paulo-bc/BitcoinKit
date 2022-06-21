@@ -25,7 +25,7 @@
 import XCTest
 @testable import YenomBitcoinKit
 
-class BCHSignatureHashHelperTests: XCTestCase {
+class BCHSignatureHashHelperTests: BaseTestCase {
     var unspentTransaction: UnspentTransaction!
     var tx: Transaction!
 

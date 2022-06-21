@@ -25,7 +25,7 @@
 import XCTest
 @testable import YenomBitcoinKit
 
-class BTCSignatureHashHelperTests: XCTestCase {
+class BTCSignatureHashHelperTests: BaseTestCase {
     var transaction: Transaction!
     var utxoToSign: TransactionOutput!
 

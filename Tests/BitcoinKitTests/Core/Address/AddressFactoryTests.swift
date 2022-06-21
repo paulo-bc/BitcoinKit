@@ -25,7 +25,7 @@
 import XCTest
 @testable import YenomBitcoinKit
 
-class AddressFactoryTests: XCTestCase {
+class AddressFactoryTests: BaseTestCase {
     func testAddressFactory() {
         // Cashaddr
         let cashaddr = try? BitcoinAddress(cashaddr: "bitcoincash:qpjdpjrm5zvp2al5u4uzmp36t9m0ll7gd525rss978")

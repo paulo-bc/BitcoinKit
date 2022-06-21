@@ -29,7 +29,7 @@ import Foundation
 /// // Builds an unsigned transaction from a transaction plan.
 /// let unsignedTx = TransactionBuilder.build(from: plan, toAddress: toAddress, changeAddress: changeAddress)
 /// ```
-public struct TransactionBuilder {
+struct TransactionBuilder {
     /// Builds an unsigned transaction from a transaction plan.
     ///
     /// - Parameters:
@@ -37,7 +37,7 @@ public struct TransactionBuilder {
     ///   - toAddress: Address to send the amount
     ///   - changeAddress: Address to receive the change
     /// - Returns: The transaction whose inputs are not signed.
-    public static func build(
+    static func build(
         from plan: TransactionPlan,
         toAddress: Address,
         changeAddress: Address,

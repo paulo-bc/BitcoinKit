@@ -27,15 +27,15 @@ import Foundation
 
 public struct TransactionOutput {
     /// Transaction Value
-    public let value: UInt64
+    let value: UInt64
     /// Length of the pk_script
-    public var scriptLength: VarInt {
+    var scriptLength: VarInt {
         return VarInt(lockingScript.count)
     }
     /// Usually contains the public key as a Bitcoin script setting up conditions to claim this output
-    public let lockingScript: Data
+    let lockingScript: Data
 
-    public func scriptCode() -> Data {
+    func scriptCode() -> Data {
         var data = Data()
         data += scriptLength.serialized()
         data += lockingScript
@@ -47,11 +47,11 @@ public struct TransactionOutput {
         self.lockingScript = lockingScript
     }
 
-    public init() {
+    init() {
         self.init(value: 0, lockingScript: Data())
     }
 
-    public func serialized() -> Data {
+    func serialized() -> Data {
         var data = Data()
         data += value
         data += scriptLength.serialized()

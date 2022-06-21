@@ -37,11 +37,11 @@ private struct _Base58: Encoding {
     }
 }
 
-public struct Base58 {
-    public static func encode(_ bytes: Data) -> String {
+struct Base58 {
+    static func encode(_ bytes: Data) -> String {
         return _Base58.encode(bytes)
     }
-    public static func decode(_ string: String) -> Data? {
+    static func decode(_ string: String) -> Data? {
         return _Base58.decode(string)
     }
 }

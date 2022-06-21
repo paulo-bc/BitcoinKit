@@ -25,7 +25,7 @@
 import XCTest
 @testable import YenomBitcoinKit
 
-final class FeeCalculatorTests: XCTestCase {
+final class FeeCalculatorTests: BaseTestCase {
     func testCalculateDust() {
         XCTAssertEqual(FeeCalculator.calculateDust(feePerByte: 1), 546)
         XCTAssertEqual(FeeCalculator.calculateDust(feePerByte: 2), 1092)

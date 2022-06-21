@@ -25,10 +25,10 @@
 import Foundation
 @testable import YenomBitcoinKit
 
-public typealias SigKeyPair = (signature: Data, key: PublicKey)
+typealias SigKeyPair = (signature: Data, key: PublicKey)
 
 // This protocol is prepared for playing with Script.
 // If you are building production application, you should implement TransactionSigner instead of MockUnlockScriptBuilder.
-public protocol MockUnlockScriptBuilder {
+protocol MockUnlockScriptBuilder {
     func build(pairs: [SigKeyPair]) -> Script
 }

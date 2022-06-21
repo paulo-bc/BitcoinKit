@@ -24,15 +24,15 @@
 
 import Foundation
 
-public enum ScriptChunkError: Error {
+enum ScriptChunkError: Error {
     case error(String)
 }
 
-public struct ScriptChunkHelper {
+struct ScriptChunkHelper {
     // If encoding is -1, then the most compact will be chosen.
     // Valid values: -1, 0, 1, 2, 4.
     // Returns nil if preferredLengthEncoding can't be used for data, or data is nil or too big.
-    public static func scriptData(for data: Data, preferredLengthEncoding: Int) -> Data? {
+    static func scriptData(for data: Data, preferredLengthEncoding: Int) -> Data? {
         var scriptData: Data = Data()
 
         if data.count < OpCode.OP_PUSHDATA1 && preferredLengthEncoding <= 0 {
@@ -55,7 +55,7 @@ public struct ScriptChunkHelper {
         return scriptData
     }
 
-    public static func parseChunk(from scriptData: Data, offset: Int) throws -> ScriptChunk {
+    static func parseChunk(from scriptData: Data, offset: Int) throws -> ScriptChunk {
         // Data should fit at least one opcode.
         guard scriptData.count > offset else {
             throw ScriptChunkError.error("Parse ScriptChunk failed. Offset is out of range.")

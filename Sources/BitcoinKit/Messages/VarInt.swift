@@ -28,13 +28,13 @@ import Foundation
 /// Integer can be encoded depending on the represented value to save space.
 /// Variable length integers always precede an array/vector of a type of data that may vary in length.
 /// Longer numbers are encoded in little endian.
-public struct VarInt: ExpressibleByIntegerLiteral {
-    public typealias IntegerLiteralType = UInt64
-    public let underlyingValue: UInt64
+struct VarInt: ExpressibleByIntegerLiteral {
+    typealias IntegerLiteralType = UInt64
+    let underlyingValue: UInt64
     let length: UInt8
     let data: Data
 
-    public init(integerLiteral value: UInt64) {
+    init(integerLiteral value: UInt64) {
         self.init(value)
     }
 
@@ -49,7 +49,7 @@ public struct VarInt: ExpressibleByIntegerLiteral {
      65536 ~ 4294967295 : 5-byte(0xfe010000 ~ 0xfeffffffff)
      4294967296 ~ 1.84467441e19 : 9-byte(0xff0000000100000000 ~ 0xfeffffffffffffffff)
     */
-    public init(_ value: UInt64) {
+    init(_ value: UInt64) {
         underlyingValue = value
 
         switch value {
@@ -70,21 +70,21 @@ public struct VarInt: ExpressibleByIntegerLiteral {
         }
     }
 
-    public init(_ value: Int) {
+    init(_ value: Int) {
         self.init(UInt64(value))
     }
 
-    public func serialized() -> Data {
+    func serialized() -> Data {
         return data
     }
 
-    public static func deserialize(_ data: Data) -> VarInt {
+    static func deserialize(_ data: Data) -> VarInt {
         return data.to(type: self)
     }
 }
 
 extension VarInt: CustomStringConvertible {
-    public var description: String {
+    var description: String {
         return "\(underlyingValue)"
     }
 }

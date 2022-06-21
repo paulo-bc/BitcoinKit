@@ -24,20 +24,20 @@
 
 import Foundation
 
-public struct ScriptFactory {
+struct ScriptFactory {
     // Basic
-    public struct Standard {}
-    public struct LockTime {}
-    public struct MultiSig {}
-    public struct OpReturn {}
-    public struct Condition {}
+    struct Standard {}
+    struct LockTime {}
+    struct MultiSig {}
+    struct OpReturn {}
+    struct Condition {}
 
     // Contract
-    public struct HashedTimeLockedContract {}
+    struct HashedTimeLockedContract {}
 }
 
 // MARK: - Standard
-public extension ScriptFactory.Standard {
+extension ScriptFactory.Standard {
     static func buildP2PK(publickey: PublicKey) -> Script? {
         return try? Script()
             .appendData(publickey.data)
@@ -61,7 +61,7 @@ public extension ScriptFactory.Standard {
 }
 
 // MARK: - LockTime
-public extension ScriptFactory.LockTime {
+extension ScriptFactory.LockTime {
     // Base
     static func build(script: Script, lockDate: Date) -> Script? {
         return try? Script()
@@ -94,7 +94,7 @@ public extension ScriptFactory.LockTime {
 }
 
 // MARK: - OpReturn
-public extension ScriptFactory.OpReturn {
+extension ScriptFactory.OpReturn {
     static func build(text: String) -> Script? {
         let MAX_OP_RETURN_DATA_SIZE: Int = 220
         guard let data = text.data(using: .utf8), data.count <= MAX_OP_RETURN_DATA_SIZE else {
@@ -107,7 +107,7 @@ public extension ScriptFactory.OpReturn {
 }
 
 // MARK: - Condition
-public extension ScriptFactory.Condition {
+extension ScriptFactory.Condition {
     static func build(scripts: [Script]) -> Script? {
 
         guard !scripts.isEmpty else {
@@ -158,7 +158,7 @@ public extension ScriptFactory.Condition {
  OP_EQUALVERIFYs
  OP_CHECKSIG
 */
-public extension ScriptFactory.HashedTimeLockedContract {
+extension ScriptFactory.HashedTimeLockedContract {
     // Base
     static func build(recipient: Address, sender: Address, lockDate: Date, hash: Data, hashOp: HashOperator) -> Script? {
         guard hash.count == hashOp.hashSize else {
@@ -204,30 +204,30 @@ public extension ScriptFactory.HashedTimeLockedContract {
 
 }
 
-public class HashOperator {
-    public static let SHA256: HashOperator = HashOperatorSha256()
-    public static let HASH160: HashOperator = HashOperatorHash160()
+class HashOperator {
+    static let SHA256: HashOperator = HashOperatorSha256()
+    static let HASH160: HashOperator = HashOperatorHash160()
 
-    public var opcode: OpCode { return .OP_INVALIDOPCODE }
-    public var hashSize: Int { return 0 }
-    public func hash(_ data: Data) -> Data { return Data() }
+    var opcode: OpCode { return .OP_INVALIDOPCODE }
+    var hashSize: Int { return 0 }
+    func hash(_ data: Data) -> Data { return Data() }
     fileprivate init() {}
 }
 
-final public class HashOperatorSha256: HashOperator {
-    override public var opcode: OpCode { return .OP_SHA256 }
-    override public var hashSize: Int { return 32 }
+final class HashOperatorSha256: HashOperator {
+    override var opcode: OpCode { return .OP_SHA256 }
+    override var hashSize: Int { return 32 }
 
-    override public func hash(_ data: Data) -> Data {
+    override func hash(_ data: Data) -> Data {
         return Crypto.sha256(data)
     }
 }
 
-final public class HashOperatorHash160: HashOperator {
-    override public var opcode: OpCode { return .OP_HASH160 }
-    override public var hashSize: Int { return 20 }
+final class HashOperatorHash160: HashOperator {
+    override var opcode: OpCode { return .OP_HASH160 }
+    override var hashSize: Int { return 20 }
 
-    override public func hash(_ data: Data) -> Data {
+    override func hash(_ data: Data) -> Data {
         return Crypto.sha256ripemd160(data)
     }
 }

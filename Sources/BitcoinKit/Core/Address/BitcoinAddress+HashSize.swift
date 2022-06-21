@@ -31,14 +31,14 @@ extension BitcoinAddress {
     /// In most cases, the size of the hash is 160 bis, however different sizes
     /// are also possible.
     /// https://www.bitcoincash.org/spec/cashaddr.html
-    public struct HashSize {
-        public let rawValue: UInt8
+    struct HashSize {
+        let rawValue: UInt8
         /// Creates a new HashSize instance with 3 bits value.
         ///
         /// Size bits are the least 3 bits of the version byte. So the rawValue
         /// should be 0-7.
         /// - Parameter rawValue: UInt8 value of the 3 bits.
-        public init?(rawValue: UInt8) {
+        init?(rawValue: UInt8) {
             guard [0, 1, 2, 3, 4, 5, 6, 7].contains(rawValue) else {
                 return nil
             }
@@ -49,7 +49,7 @@ extension BitcoinAddress {
         ///
         /// The hash size in bits can be 160, 192, 224, 256, 320, 384, 448 or 512.
         /// - Parameter sizeInBits: UInt8 value of the size of the hash in bits.
-        public init?(sizeInBits: Int) {
+        init?(sizeInBits: Int) {
             switch sizeInBits {
             case 160: rawValue = 0
             case 192: rawValue = 1
@@ -67,7 +67,7 @@ extension BitcoinAddress {
 
 extension BitcoinAddress.HashSize {
     /// Hash size in bits
-    public var sizeInBits: Int {
+    var sizeInBits: Int {
         switch rawValue {
         case 0: return 160
         case 1: return 192
@@ -82,25 +82,25 @@ extension BitcoinAddress.HashSize {
     }
 
     /// Hash size in bytes
-    public var sizeInBytes: Int {
+    var sizeInBytes: Int {
         return sizeInBits / 8
     }
 }
 
 extension BitcoinAddress.HashSize: Equatable {
     // swiftlint:disable operator_whitespace
-    public static func ==(lhs: BitcoinAddress.HashSize, rhs: BitcoinAddress.HashSize) -> Bool {
+    static func ==(lhs: BitcoinAddress.HashSize, rhs: BitcoinAddress.HashSize) -> Bool {
         return lhs.rawValue == rhs.rawValue
     }
 }
 
 extension BitcoinAddress.HashSize {
-    public static let bits160: BitcoinAddress.HashSize = BitcoinAddress.HashSize(sizeInBits: 160)!
-    public static let bits192: BitcoinAddress.HashSize = BitcoinAddress.HashSize(sizeInBits: 192)!
-    public static let bits224: BitcoinAddress.HashSize = BitcoinAddress.HashSize(sizeInBits: 224)!
-    public static let bits256: BitcoinAddress.HashSize = BitcoinAddress.HashSize(sizeInBits: 256)!
-    public static let bits320: BitcoinAddress.HashSize = BitcoinAddress.HashSize(sizeInBits: 320)!
-    public static let bits384: BitcoinAddress.HashSize = BitcoinAddress.HashSize(sizeInBits: 384)!
-    public static let bits448: BitcoinAddress.HashSize = BitcoinAddress.HashSize(sizeInBits: 448)!
-    public static let bits512: BitcoinAddress.HashSize = BitcoinAddress.HashSize(sizeInBits: 512)!
+    static let bits160: BitcoinAddress.HashSize = BitcoinAddress.HashSize(sizeInBits: 160)!
+    static let bits192: BitcoinAddress.HashSize = BitcoinAddress.HashSize(sizeInBits: 192)!
+    static let bits224: BitcoinAddress.HashSize = BitcoinAddress.HashSize(sizeInBits: 224)!
+    static let bits256: BitcoinAddress.HashSize = BitcoinAddress.HashSize(sizeInBits: 256)!
+    static let bits320: BitcoinAddress.HashSize = BitcoinAddress.HashSize(sizeInBits: 320)!
+    static let bits384: BitcoinAddress.HashSize = BitcoinAddress.HashSize(sizeInBits: 384)!
+    static let bits448: BitcoinAddress.HashSize = BitcoinAddress.HashSize(sizeInBits: 448)!
+    static let bits512: BitcoinAddress.HashSize = BitcoinAddress.HashSize(sizeInBits: 512)!
 }

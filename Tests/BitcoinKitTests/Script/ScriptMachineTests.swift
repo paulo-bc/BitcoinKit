@@ -25,7 +25,7 @@
 import XCTest
 @testable import YenomBitcoinKit
 
-class ScriptMachineTests: XCTestCase {
+class ScriptMachineTests: BaseTestCase {
     
     func testCheck() {
         // Transaction in testnet3

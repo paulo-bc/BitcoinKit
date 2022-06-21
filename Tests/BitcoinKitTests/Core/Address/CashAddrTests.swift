@@ -26,7 +26,7 @@
 import XCTest
 @testable import YenomBitcoinKit
 
-class CashAddrTests: XCTestCase {
+class CashAddrTests: BaseTestCase {
     func testAddress() {
         // Mainnet
 

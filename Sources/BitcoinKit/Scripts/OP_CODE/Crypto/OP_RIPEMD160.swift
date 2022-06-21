@@ -9,13 +9,13 @@
 import Foundation
 
 // The input is hashed using RIPEMD-160.
-public struct OpRipemd160: OpCodeProtocol {
-    public var value: UInt8 { return 0xa6 }
-    public var name: String { return "OP_RIPEMD160" }
+struct OpRipemd160: OpCodeProtocol {
+    var value: UInt8 { return 0xa6 }
+    var name: String { return "OP_RIPEMD160" }
 
     // input : in
     // output : hash
-    public func mainProcess(_ context: ScriptExecutionContext) throws {
+    func mainProcess(_ context: ScriptExecutionContext) throws {
         try context.assertStackHeightGreaterThanOrEqual(1)
 
         let data: Data = context.stack.removeLast()

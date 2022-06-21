@@ -26,7 +26,7 @@
 import XCTest
 @testable import YenomBitcoinKit
 
-class BitcoinKitTests: XCTestCase {
+class BitcoinKitTests: BaseTestCase {
     func testConvertIP() {
         let ipv6Address = "2001:0db8:1234:5678:90ab:cdef:0000:0000"
         XCTAssertEqual(ipv6(from: Data(hex: ipv6Address.split(separator: ":").joined())), ipv6Address)

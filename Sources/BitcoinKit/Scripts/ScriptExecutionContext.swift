@@ -24,32 +24,32 @@
 
 import Foundation
 
-public class ScriptExecutionContext {
+class ScriptExecutionContext {
     // Flags affecting verification. Default is the most liberal verification.
     // One can be stricter to not relay transactions with non-canonical signatures and pubkey (as BitcoinQT does).
     // Defaults in CoreBitcoin: be liberal in what you accept and conservative in what you send.
     // So we try to create canonical purist transactions but have no problem accepting and working with non-canonical ones.
-    public var verificationFlags: ScriptVerification?
+    var verificationFlags: ScriptVerification?
 
     // Stack contains Data objects that are interpreted as numbers, bignums, booleans or raw data when needed.
-    public internal(set) var stack = [Data]()
+    var stack = [Data]()
     // Used in ALTSTACK ops.
-    public internal(set) var altStack = [Data]()
+    var altStack = [Data]()
     // Holds an array of Bool values to keep track of if/else branches.
-    public internal(set) var conditionStack = [Bool]()
+    var conditionStack = [Bool]()
 
     // Keeps number of executed operations to check for limit.
-    public internal(set) var opCount: Int = 0
+    var opCount: Int = 0
 
     // Transaction, utxo, index for CHECKSIG operations
-    public private(set) var transaction: Transaction?
-    public private(set) var utxoToVerify: TransactionOutput?
-    public private(set) var txinToVerify: TransactionInput?
-    public private(set) var inputIndex: UInt32 = 0xffffffff
+    private(set) var transaction: Transaction?
+    private(set) var utxoToVerify: TransactionOutput?
+    private(set) var txinToVerify: TransactionInput?
+    private(set) var inputIndex: UInt32 = 0xffffffff
 
     // A timestamp of the current block. Default is current timestamp.
     // This is used to test for P2SH scripts or other changes in the protocol that may happen in the future.
-    public var blockTimeStamp: UInt32 = UInt32(Date().timeIntervalSince1970)
+    var blockTimeStamp: UInt32 = UInt32(Date().timeIntervalSince1970)
 
     // Constants
     private let blobFalse: Data = Data()
@@ -57,12 +57,12 @@ public class ScriptExecutionContext {
     private let blobTrue: Data = Data([UInt8(1)])
 
     // If verbose is true, stack will be printed each time OP_CODEs are executed
-    public var verbose: Bool = false
+    var verbose: Bool = false
 
-    public init(isDebug: Bool = false) {
+    init(isDebug: Bool = false) {
         self.verbose = isDebug
     }
-    public init?(transaction: Transaction, utxoToVerify: TransactionOutput, inputIndex: UInt32) {
+    init?(transaction: Transaction, utxoToVerify: TransactionOutput, inputIndex: UInt32) {
         guard transaction.inputs.count > inputIndex else {
             return nil
         }
@@ -71,11 +71,11 @@ public class ScriptExecutionContext {
         self.txinToVerify = transaction.inputs[Int(inputIndex)]
         self.inputIndex = inputIndex
     }
-    public var shouldExecute: Bool {
+    var shouldExecute: Bool {
         return !conditionStack.contains(false)
     }
 
-    public func shouldVerifyP2SH() -> Bool {
+    func shouldVerifyP2SH() -> Bool {
         return blockTimeStamp >= BTC_BIP16_TIMESTAMP
     }
 
@@ -84,48 +84,48 @@ public class ScriptExecutionContext {
     }
 
     // stack
-    public func pushToStack(_ bool: Bool) {
+    func pushToStack(_ bool: Bool) {
         stack.append(bool ? blobTrue : blobFalse)
     }
-    public func pushToStack(_ n: Int32) throws {
+    func pushToStack(_ n: Int32) throws {
         stack.append(BigNumber(n.littleEndian).data)
     }
-    public func pushToStack(_ data: Data) throws {
+    func pushToStack(_ data: Data) throws {
         guard data.count <= BTC_MAX_SCRIPT_ELEMENT_SIZE else {
             throw ScriptMachineError.error("PushedData size is too big.")
         }
         stack.append(data)
     }
-    public func resetStack() {
+    func resetStack() {
         stack = []
         altStack = []
         conditionStack = []
     }
-    public func swapDataAt(i: Int, j: Int) {
+    func swapDataAt(i: Int, j: Int) {
         stack.swapAt(normalized(i), normalized(j))
     }
 
-    public func assertStackHeightGreaterThanOrEqual(_ n: Int) throws {
+    func assertStackHeightGreaterThanOrEqual(_ n: Int) throws {
         guard stack.count >= n else {
             throw OpCodeExecutionError.opcodeRequiresItemsOnStack(n)
         }
     }
 
-    public func assertAltStackHeightGreaterThanOrEqual(_ n: Int) throws {
+    func assertAltStackHeightGreaterThanOrEqual(_ n: Int) throws {
         guard altStack.count >= n else {
             throw OpCodeExecutionError.error("Operation requires \(n) items on altstack.")
         }
     }
 
     // OpCount
-    public func incrementOpCount(by i: Int = 1) throws {
+    func incrementOpCount(by i: Int = 1) throws {
         opCount += i
         guard opCount <= BTC_MAX_OPS_PER_SCRIPT else {
             throw OpCodeExecutionError.error("Exceeded the allowed number of operations per script.")
         }
     }
 
-    public func deserializeP2SHLockScript(stackForP2SH: [Data]) throws -> Script {
+    func deserializeP2SHLockScript(stackForP2SH: [Data]) throws -> Script {
         var stackForP2SH: [Data] = stackForP2SH
 
         // Instantiate the script from the last data on the stack.
@@ -145,11 +145,11 @@ public class ScriptExecutionContext {
         return deserializedLockScript
     }
 
-    public func data(at i: Int) -> Data {
+    func data(at i: Int) -> Data {
         return stack[normalized(i)]
     }
 
-    public func number(at i: Int) throws -> Int32 {
+    func number(at i: Int) throws -> Int32 {
         let data: Data = stack[normalized(i)]
         guard data.count <= 4 else {
             throw OpCodeExecutionError.invalidBignum
@@ -158,7 +158,7 @@ public class ScriptExecutionContext {
         return BigNumber(data).int32
     }
 
-    public func bool(at i: Int) -> Bool {
+    func bool(at i: Int) -> Bool {
         let data: Data = stack[normalized(i)]
         guard !data.isEmpty else {
             return false
@@ -176,7 +176,7 @@ public class ScriptExecutionContext {
 }
 
 extension ScriptExecutionContext: CustomStringConvertible {
-    public var description: String {
+    var description: String {
         var desc: String = ""
         for data in stack.reversed() {
             let hex = data.hex

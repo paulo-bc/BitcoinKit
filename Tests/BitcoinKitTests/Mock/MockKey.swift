@@ -25,20 +25,20 @@
 import Foundation
 @testable import YenomBitcoinKit
 
-public class MockKey {
-    public static let keyA: MockKey = MockKey(wif: "L1WFAgk5LxC5NLfuTeADvJ5nm3ooV3cKei5Yi9LJ8ENDfGMBZjdW")
-    public static let keyB: MockKey = MockKey(wif: "L1hpUWE7R8NsYcREtS9DJPdvnjSRK7X8fatvhH6mStiXxvGTLkdi")
-    public static let keyC: MockKey = MockKey(wif: "KxHkyFWVPKZE9ZrYpNmRhfLFxr6TYwXELvcSTdMtZKMzZm95e7KR")
-    public static let keyD: MockKey = MockKey(wif: "L31xG1KVupuVJJ6Fc6VzorCr9FaZz7TBQx7saAMBmdjTK8oL3yzB")
+class MockKey {
+    static let keyA: MockKey = MockKey(wif: "L1WFAgk5LxC5NLfuTeADvJ5nm3ooV3cKei5Yi9LJ8ENDfGMBZjdW")
+    static let keyB: MockKey = MockKey(wif: "L1hpUWE7R8NsYcREtS9DJPdvnjSRK7X8fatvhH6mStiXxvGTLkdi")
+    static let keyC: MockKey = MockKey(wif: "KxHkyFWVPKZE9ZrYpNmRhfLFxr6TYwXELvcSTdMtZKMzZm95e7KR")
+    static let keyD: MockKey = MockKey(wif: "L31xG1KVupuVJJ6Fc6VzorCr9FaZz7TBQx7saAMBmdjTK8oL3yzB")
 
     private var wif: String!
-    public var privkey: PrivateKey {
+    var privkey: PrivateKey {
         return try! PrivateKey(wif: wif)
     }
-    public var pubkey: PublicKey {
+    var pubkey: PublicKey {
         return privkey.publicKey()
     }
-    public var pubkeyHash: Data {
+    var pubkeyHash: Data {
         return pubkey.pubkeyHash
     }
 
@@ -48,7 +48,7 @@ public class MockKey {
 }
 
 extension MockKey: CustomStringConvertible {
-    public var description: String {
+    var description: String {
         switch wif {
         case "L1WFAgk5LxC5NLfuTeADvJ5nm3ooV3cKei5Yi9LJ8ENDfGMBZjdW":
             return "keyA"
@@ -65,7 +65,7 @@ extension MockKey: CustomStringConvertible {
 }
 
 extension MockKey: Equatable {
-    public static func == (lhs: MockKey, rhs: MockKey) -> Bool {
+    static func == (lhs: MockKey, rhs: MockKey) -> Bool {
         return lhs.wif == rhs.wif
     }
 }

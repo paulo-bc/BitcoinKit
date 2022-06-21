@@ -24,7 +24,7 @@
 
 import Foundation
 
-public enum TransactionSignerError: Error {
+enum TransactionSignerError: Error {
     case noKeyFound
 }
 
@@ -38,11 +38,11 @@ public enum TransactionSignerError: Error {
 /// ```
 public final class TransactionSigner {
     /// Unspent transactions to be signed.
-    public let unspentTransactions: [UnspentTransaction]
+    let unspentTransactions: [UnspentTransaction]
     /// Transaction being signed.
-    public let transaction: Transaction
+    let transaction: Transaction
     /// Signature Hash Helper
-    public let sighashHelper: SignatureHashHelper
+    let sighashHelper: SignatureHashHelper
 
     /// List of signed inputs.
     private var signedInputs: [TransactionInput]

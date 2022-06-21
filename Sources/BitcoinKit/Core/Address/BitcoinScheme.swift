@@ -24,13 +24,13 @@
 
 import Foundation
 
-public enum BitcoinScheme: String {
+enum BitcoinScheme: String {
     case bitcoincash
     case bchtest
     case bitcoin
     case none = ""
 
-    public init?(scheme: String) {
+    init?(scheme: String) {
         self.init(rawValue: scheme.lowercased())
     }
 }

@@ -26,7 +26,7 @@
 import XCTest
 @testable import YenomBitcoinKit
 
-class MurmurHashTests: XCTestCase {
+class MurmurHashTests: BaseTestCase {
     func testMurmurHash() {
         let testdata = """
             a|0|1009084850

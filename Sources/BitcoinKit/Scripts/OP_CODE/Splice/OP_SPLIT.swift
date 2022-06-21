@@ -25,13 +25,13 @@
 import Foundation
 
 // Split the operand at the given position.
-public struct OpSplit: OpCodeProtocol {
-    public var value: UInt8 { return 0x7f }
-    public var name: String { return "OP_SPLIT" }
+struct OpSplit: OpCodeProtocol {
+    var value: UInt8 { return 0x7f }
+    var name: String { return "OP_SPLIT" }
 
     // input : in position
     // output : x1 x2
-    public func mainProcess(_ context: ScriptExecutionContext) throws {
+    func mainProcess(_ context: ScriptExecutionContext) throws {
         try context.assertStackHeightGreaterThanOrEqual(2)
         let data: Data = context.data(at: -2)
 

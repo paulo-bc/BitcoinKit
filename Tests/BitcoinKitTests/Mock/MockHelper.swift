@@ -25,24 +25,24 @@
 import Foundation
 @testable import YenomBitcoinKit
 
-public struct MockHelper {
+struct MockHelper {
     @available(*, deprecated, renamed: "createUnspentTransaction(lockScript:)")
-    public static func createUtxo(lockScript: Script) -> UnspentTransaction {
+    static func createUtxo(lockScript: Script) -> UnspentTransaction {
         return createUnspentTransaction(lockScript: lockScript)
     }
 
-    public static func createUnspentTransaction(lockScript: Script) -> UnspentTransaction {
+    static func createUnspentTransaction(lockScript: Script) -> UnspentTransaction {
         let outputMock = TransactionOutput(value: 100_000_000, lockingScript: lockScript.data)
         let outpointMock = TransactionOutPoint(hash: Data(), index: 0)
         return UnspentTransaction(output: outputMock, outpoint: outpointMock)
     }
 
     @available(*, deprecated, renamed: "createTransaction(unspentTransaction:)")
-    public static func createTransaction(utxo: UnspentTransaction) -> Transaction {
+    static func createTransaction(utxo: UnspentTransaction) -> Transaction {
         return createTransaction(unspentTransaction: utxo)
     }
 
-    public static func createTransaction(unspentTransaction: UnspentTransaction) -> Transaction {
+    static func createTransaction(unspentTransaction: UnspentTransaction) -> Transaction {
         let toAddress: BitcoinAddress = try! BitcoinAddress(legacy: "1Bp9U1ogV3A14FMvKbRJms7ctyso4Z4Tcx")
         let changeAddress: BitcoinAddress = try! BitcoinAddress(legacy: "1FQc5LdgGHMHEN9nwkjmz6tWkxhPpxBvBU")
         // 1. inputs
@@ -69,7 +69,7 @@ public struct MockHelper {
         return tx
     }
 
-    public static func updateTransaction(_ tx: Transaction, unlockScriptData: Data) -> Transaction {
+    static func updateTransaction(_ tx: Transaction, unlockScriptData: Data) -> Transaction {
         let i = 0
         var inputs = tx.inputs
 
@@ -85,7 +85,7 @@ public struct MockHelper {
                            lockTime: tx.lockTime)
     }
 
-    public static func verifySingleKey(lockScript: Script, unlockScriptBuilder: MockUnlockScriptBuilder, key: MockKey, verbose: Bool = true) throws -> Bool {
+    static func verifySingleKey(lockScript: Script, unlockScriptBuilder: MockUnlockScriptBuilder, key: MockKey, verbose: Bool = true) throws -> Bool {
         // mocks
         let utxoMock: UnspentTransaction = MockHelper.createUnspentTransaction(lockScript: lockScript)
         let txMock: Transaction = MockHelper.createTransaction(unspentTransaction: utxoMock)
@@ -109,7 +109,7 @@ public struct MockHelper {
         return try ScriptMachine.verify(lockScript: lockScript, unlockScript: unlockScript, context: context)
     }
 
-    public static func verifyMultiKey(lockScript: Script, unlockScriptBuilder: MockUnlockScriptBuilder, keys: [MockKey], verbose: Bool = true) throws -> Bool {
+    static func verifyMultiKey(lockScript: Script, unlockScriptBuilder: MockUnlockScriptBuilder, keys: [MockKey], verbose: Bool = true) throws -> Bool {
         // mocks
         let mockUnspentTransaction: UnspentTransaction = MockHelper.createUnspentTransaction(lockScript: lockScript)
         let mockTransaction: Transaction = MockHelper.createTransaction(unspentTransaction: mockUnspentTransaction)

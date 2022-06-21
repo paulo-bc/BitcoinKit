@@ -26,7 +26,7 @@
 import XCTest
 @testable import YenomBitcoinKit
 
-class CryptoTests: XCTestCase {
+class CryptoTests: BaseTestCase {
     func testSHA256() {
         /* Usually, when a hash is computed within bitcoin, it is computed twice.
          Most of the time SHA-256 hashes are used, however RIPEMD-160 is also used when a shorter hash is desirable

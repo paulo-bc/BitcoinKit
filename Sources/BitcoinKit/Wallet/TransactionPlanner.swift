@@ -32,13 +32,13 @@ import Foundation
 /// // Plan a transaction with unspent transactions and target amount
 /// let plan = planner.plan(unspentTransactions: unspentTransactions, amount: targetAmount)
 /// ```
-public struct TransactionPlanner {
-    public enum DustPolicy {
+struct TransactionPlanner {
+    enum DustPolicy {
         case toFee, toReceiver
     }
-    public var feePerByte: UInt64
-    public var dustPolicy: DustPolicy
-    public init(feePerByte: UInt64, dustPolicy: DustPolicy = .toFee) {
+    var feePerByte: UInt64
+    var dustPolicy: DustPolicy
+    init(feePerByte: UInt64, dustPolicy: DustPolicy = .toFee) {
         self.feePerByte = feePerByte
         self.dustPolicy = dustPolicy
     }
@@ -49,7 +49,7 @@ public struct TransactionPlanner {
     ///   - unspentTransactions: Available unspent transactions
     ///   - target: Target amount to send
     /// - Returns: A transaction plan. The amount of the plan may be different from target. Bit smaller when the funds are insufficient, bit bigger when the change is dust.
-    public func plan(unspentTransactions: [UnspentTransaction], target amount: UInt64) -> TransactionPlan {
+    func plan(unspentTransactions: [UnspentTransaction], target amount: UInt64) -> TransactionPlan {
         let dustValue: UInt64 = FeeCalculator.calculateDust(feePerByte: feePerByte)
         let selected: [UnspentTransaction] = UnspentTransactionSelector
             .select(from: unspentTransactions, targetValue: amount, feePerByte: feePerByte)

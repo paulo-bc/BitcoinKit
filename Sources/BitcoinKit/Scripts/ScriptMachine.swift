@@ -24,12 +24,12 @@
 
 import Foundation
 
-public enum ScriptVerification {
+enum ScriptVerification {
     case StrictEncoding // enforce strict conformance to DER and SEC2 for signatures and pubkeys (aka SCRIPT_VERIFY_STRICTENC)
     case EvenS // enforce lower S values (below curve halforder) in signatures (aka SCRIPT_VERIFY_EVEN_S, depends on STRICTENC)
 }
 
-public enum ScriptMachineError: Error {
+enum ScriptMachineError: Error {
     case exception(String)
     case error(String)
     case opcodeRequiresItemsOnStack(Int)
@@ -39,11 +39,11 @@ public enum ScriptMachineError: Error {
 // ScriptMachine is a stack machine (like Forth) that evaluates a predicate
 // returning a bool indicating valid or not. There are no loops.
 // You can -copy a machine which will copy all the parameters and the stack state.
-public struct ScriptMachine {
+struct ScriptMachine {
 
-    public init() { }
+    init() { }
 
-    public static func verifyTransaction(signedTx: Transaction, inputIndex: UInt32, utxo: TransactionOutput, blockTimeStamp: UInt32 = UInt32(NSTimeIntervalSince1970)) throws -> Bool {
+    static func verifyTransaction(signedTx: Transaction, inputIndex: UInt32, utxo: TransactionOutput, blockTimeStamp: UInt32 = UInt32(NSTimeIntervalSince1970)) throws -> Bool {
         // Sanity check: transaction and its input should be consistent.
         guard inputIndex < signedTx.inputs.count else {
             throw ScriptMachineError.exception("Transaction and valid inputIndex are required for script verification.")
@@ -59,7 +59,7 @@ public struct ScriptMachine {
         return try verify(lockScript: lockScript, unlockScript: unlockScript, context: context)
     }
 
-    public static func verify(lockScript: Script, unlockScript: Script, context: ScriptExecutionContext) throws -> Bool {
+    static func verify(lockScript: Script, unlockScript: Script, context: ScriptExecutionContext) throws -> Bool {
         // First step: run the input script which typically places signatures, pubkeys and other static data needed for outputScript.
         try run(unlockScript, context: context)
 
@@ -107,7 +107,7 @@ public struct ScriptMachine {
         return true
     }
 
-    public static func run(_ script: Script, context: ScriptExecutionContext) throws {
+    static func run(_ script: Script, context: ScriptExecutionContext) throws {
         guard script.data.count <= BTC_MAX_SCRIPT_SIZE else {
             throw ScriptMachineError.exception("Script binary is too long.")
         }

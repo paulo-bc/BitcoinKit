@@ -25,7 +25,7 @@
 import XCTest
 @testable import YenomBitcoinKit
 
-class AddressTests: XCTestCase {
+class AddressTests: BaseTestCase {
     
     func testMainnetLegacyAddress() {
         let privateKey = try! PrivateKey(wif: "5K6EwEiKWKNnWGYwbNtrXjA8KKNntvxNKvepNqNeeLpfW7FSG1v")

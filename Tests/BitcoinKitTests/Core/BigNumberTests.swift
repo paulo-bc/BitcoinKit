@@ -25,7 +25,7 @@
 import XCTest
 @testable import YenomBitcoinKit
 
-class BigNumberTests: XCTestCase {
+class BigNumberTests: BaseTestCase {
     func testBigNumber() {
         XCTAssertEqual(BigNumber(), BigNumber.zero, "default bignum should be zero")
         XCTAssertNotEqual(BigNumber(), BigNumber.one, "default bignum should not be one")

@@ -25,7 +25,7 @@
 import XCTest
 @testable import YenomBitcoinKit
 
-class UInt256Tests: XCTestCase {
+class UInt256Tests: BaseTestCase {
 
     override func setUp() {
         super.setUp()

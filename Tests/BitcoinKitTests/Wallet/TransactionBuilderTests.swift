@@ -25,7 +25,7 @@
 import XCTest
 @testable import YenomBitcoinKit
 
-class TransactionBuilderTests: XCTestCase {
+class TransactionBuilderTests: BaseTestCase {
     func testBTCTransaction() {
         // Transaction in testnet3
         // https://api.blockcypher.com/v1/btc/test3/txs/0189910c263c4d416d5c5c2cf70744f9f6bcd5feaf0b149b02e5d88afbe78992

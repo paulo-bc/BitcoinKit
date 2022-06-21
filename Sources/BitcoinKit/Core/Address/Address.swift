@@ -24,7 +24,7 @@
 
 import Foundation
 
-public protocol Address: CustomStringConvertible {
+protocol Address: CustomStringConvertible {
     var network: Network { get }
     var hashType: BitcoinAddress.HashType { get }
     var data: Data { get }
@@ -34,17 +34,17 @@ public protocol Address: CustomStringConvertible {
 
 extension Address {
     @available(*, deprecated, message: "Always returns nil. If you need public key with address, please use PublicKey instead.")
-    public var publicKey: Data? {
+    var publicKey: Data? {
         return nil
     }
 
     @available(*, deprecated, renamed: "legacy")
-    public var base58: String {
+    var base58: String {
         return legacy
     }
 
     @available(*, deprecated, renamed: "hashType")
-    public var type: BitcoinAddress.HashType {
+    var type: BitcoinAddress.HashType {
         return hashType
     }
 }

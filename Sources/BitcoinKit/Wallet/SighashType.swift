@@ -35,7 +35,7 @@ private let SIGHASH_OUTPUT_MASK: UInt8 = 0x1f // 00011111
 public protocol SighashType {
     var rawValue: UInt8 { get }
 }
-public extension SighashType {
+extension SighashType {
     var uint8: UInt8 { return rawValue }
     var uint32: UInt32 { return UInt32(rawValue) }
 
@@ -62,27 +62,27 @@ public extension SighashType {
 
 extension UInt8 {
     @available(*, deprecated, message: "Use hashType.uint8 instead")
-    public init(_ hashType: SighashType) {
+    init(_ hashType: SighashType) {
         self = hashType.uint8
     }
 }
 
 extension UInt32 {
     @available(*, deprecated, message: "Use hashType.uint32 instead")
-    public init(_ hashType: SighashType) {
+    init(_ hashType: SighashType) {
         self = UInt32(UInt8(hashType))
     }
 }
 
 extension SighashType {
     public typealias BCH = BCHSighashType
-    public typealias BTC = BTCSighashType
+    typealias BTC = BTCSighashType
 }
 
 // MARK: BCH SighashType
 public enum BCHSighashType: SighashType {
     case ALL, NONE, SINGLE, ALL_ANYONECANPAY, NONE_ANYONECANPAY, SINGLE_ANYONECANPAY
-    public init?(rawValue: UInt8) {
+    init?(rawValue: UInt8) {
         switch rawValue {
         case BCHSighashType.ALL.rawValue: self = .ALL
         case BCHSighashType.NONE.rawValue: self = .NONE
@@ -107,9 +107,9 @@ public enum BCHSighashType: SighashType {
 }
 
 // MARK: BTC SighashType
-public enum BTCSighashType: SighashType {
+enum BTCSighashType: SighashType {
     case ALL, NONE, SINGLE, ALL_ANYONECANPAY, NONE_ANYONECANPAY, SINGLE_ANYONECANPAY
-    public init?(rawValue: UInt8) {
+    init?(rawValue: UInt8) {
         switch rawValue {
         case BTCSighashType.ALL.rawValue: self = .ALL
         case BTCSighashType.NONE.rawValue: self = .NONE
@@ -121,7 +121,7 @@ public enum BTCSighashType: SighashType {
         }
     }
 
-    public var rawValue: UInt8 {
+    var rawValue: UInt8 {
         switch self {
         case .ALL: return SIGHASH_ALL // 00000001
         case .NONE: return SIGHASH_NONE // 00000010

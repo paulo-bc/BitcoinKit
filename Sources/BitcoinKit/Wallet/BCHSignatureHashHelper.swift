@@ -33,8 +33,8 @@ import Foundation
 /// let sighash: Data = helper.createSignatureHash(of: tx, for: utxos[0].output, inputIndex: 0)
 /// ```
 public struct BCHSignatureHashHelper: SignatureHashHelper {
-    public let zero: Data = Data(repeating: 0, count: 32)
-    public let one: Data = Data(repeating: 1, count: 1) + Data(repeating: 0, count: 31)
+    let zero: Data = Data(repeating: 0, count: 32)
+    let one: Data = Data(repeating: 1, count: 1) + Data(repeating: 0, count: 31)
 
     public let hashType: SighashType
     public init(hashType: SighashType.BCH) {
@@ -42,7 +42,7 @@ public struct BCHSignatureHashHelper: SignatureHashHelper {
     }
 
     /// Create the hash of the transaction's previous outpoints
-    public func createPrevoutHash(of tx: Transaction) -> Data {
+    func createPrevoutHash(of tx: Transaction) -> Data {
         // if the ANYONECANPAY flag is set, returns uint256 of 0x0000......0000.
         if hashType.isAnyoneCanPay {
             return zero
@@ -55,7 +55,7 @@ public struct BCHSignatureHashHelper: SignatureHashHelper {
     }
 
     /// Create the hash of the sequences of the transaction's inputs
-    public func createSequenceHash(of tx: Transaction) -> Data {
+    func createSequenceHash(of tx: Transaction) -> Data {
         // if the ANYONECANPAY flag is set, hashSequence is a uint256 of 0x0000......0000
         if hashType.isAnyoneCanPay {
             return zero
@@ -76,7 +76,7 @@ public struct BCHSignatureHashHelper: SignatureHashHelper {
     }
 
     /// Create the hash of the transaction's outputs
-    public func createOutputsHash(of tx: Transaction, index: Int) -> Data {
+    func createOutputsHash(of tx: Transaction, index: Int) -> Data {
         if !hashType.isSingle
             && !hashType.isNone {
             // If the sighash type is neither SINGLE nor NONE, hashOutputs is the double SHA256 of the serialization of all output amounts (8-byte little endian) paired up with their scriptPubKey (serialized as scripts inside CTxOuts)

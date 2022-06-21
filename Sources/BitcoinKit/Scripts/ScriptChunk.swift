@@ -24,7 +24,7 @@
 
 import Foundation
 
-public protocol ScriptChunk {
+protocol ScriptChunk {
     // Reference to the whole script binary data.
     var scriptData: Data { get }
     // A range of scriptData represented by this chunk.
@@ -54,19 +54,19 @@ public protocol ScriptChunk {
 }
 
 extension ScriptChunk {
-    public var opCode: OpCode {
+    var opCode: OpCode {
         return OpCodeFactory.get(with: opcodeValue)
     }
 
-    public var opcodeValue: UInt8 {
+    var opcodeValue: UInt8 {
         return UInt8(scriptData[range.lowerBound])
     }
 
-    public var chunkData: Data {
+    var chunkData: Data {
         return scriptData.subdata(in: range)
     }
 
-    public func updated(scriptData data: Data) -> ScriptChunk {
+    func updated(scriptData data: Data) -> ScriptChunk {
         if self is DataChunk {
             return DataChunk(scriptData: data, range: range)
         } else {
@@ -74,7 +74,7 @@ extension ScriptChunk {
         }
     }
 
-    public func updated(scriptData data: Data, range updatedRange: Range<Int>) -> ScriptChunk {
+    func updated(scriptData data: Data, range updatedRange: Range<Int>) -> ScriptChunk {
         if self is DataChunk {
             return DataChunk(scriptData: data, range: updatedRange)
         } else {
@@ -84,30 +84,30 @@ extension ScriptChunk {
 
 }
 
-public struct OpcodeChunk: ScriptChunk {
-    public var scriptData: Data
-    public var range: Range<Int>
+struct OpcodeChunk: ScriptChunk {
+    var scriptData: Data
+    var range: Range<Int>
 
-    public init(scriptData: Data, range: Range<Int>) {
+    init(scriptData: Data, range: Range<Int>) {
         self.scriptData = scriptData
         self.range = range
     }
 
-    public var string: String {
+    var string: String {
         return opCode.name
     }
 }
 
-public struct DataChunk: ScriptChunk {
-    public var scriptData: Data
-    public var range: Range<Int>
+struct DataChunk: ScriptChunk {
+    var scriptData: Data
+    var range: Range<Int>
 
-    public init(scriptData: Data, range: Range<Int>) {
+    init(scriptData: Data, range: Range<Int>) {
         self.scriptData = scriptData
         self.range = range
     }
 
-    public var pushedData: Data {
+    var pushedData: Data {
         return data
     }
 
@@ -124,7 +124,7 @@ public struct DataChunk: ScriptChunk {
         return scriptData.subdata(in: (range.lowerBound + loc)..<(range.upperBound))
     }
 
-    public var string: String {
+    var string: String {
         var string: String
         guard !data.isEmpty else {
             return "OP_0" // Empty data is encoded as OP_0.
@@ -162,7 +162,7 @@ public struct DataChunk: ScriptChunk {
     }
 
     // Returns true if the data is represented with the most compact opcode.
-    public var isDataCompact: Bool {
+    var isDataCompact: Bool {
         switch opCode.value {
         case ...OpCode.OP_PUSHDATA1.value:
             return true // length fits in one byte under OP_PUSHDATA1.

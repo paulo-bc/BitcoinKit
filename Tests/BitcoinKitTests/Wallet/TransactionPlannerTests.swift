@@ -25,7 +25,7 @@
 import XCTest
 @testable import YenomBitcoinKit
 
-class TransactionPlannerTests: XCTestCase {
+class TransactionPlannerTests: BaseTestCase {
     var planner: TransactionPlanner!
     var utxos: [UnspentTransaction]!
     override func setUp() {

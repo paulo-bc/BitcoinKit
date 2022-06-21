@@ -24,7 +24,7 @@
 
 import Foundation
 
-public protocol OpCodeProtocol {
+protocol OpCodeProtocol {
     var name: String { get }
     var value: UInt8 { get }
 
@@ -33,7 +33,7 @@ public protocol OpCodeProtocol {
 }
 
 extension OpCodeProtocol {
-    public func isEnabled() -> Bool {
+    func isEnabled() -> Bool {
         return true
     }
     private func preprocess(_ context: ScriptExecutionContext) throws {
@@ -50,11 +50,11 @@ extension OpCodeProtocol {
         }
     }
 
-    public func mainProcess(_ context: ScriptExecutionContext) throws {
+    func mainProcess(_ context: ScriptExecutionContext) throws {
         throw OpCodeExecutionError.notImplemented("[\(name)(\(value))]")
     }
 
-    public func execute(_ context: ScriptExecutionContext) throws {
+    func execute(_ context: ScriptExecutionContext) throws {
         try preprocess(context)
         guard context.shouldExecute || (OpCode.OP_IF <= self && self <= OpCode.OP_ENDIF) else {
             if context.verbose {
@@ -74,7 +74,7 @@ extension OpCodeProtocol {
     }
 }
 
-public enum OpCodeExecutionError: Error {
+enum OpCodeExecutionError: Error {
     case notImplemented(String)
     case error(String)
     case opcodeRequiresItemsOnStack(Int)
@@ -83,68 +83,68 @@ public enum OpCodeExecutionError: Error {
 }
 
 // ==
-public func == (lhs: OpCodeProtocol, rhs: OpCodeProtocol) -> Bool {
+func == (lhs: OpCodeProtocol, rhs: OpCodeProtocol) -> Bool {
     return lhs.value == rhs.value
 }
-public func == <Other: BinaryInteger>(lhs: OpCodeProtocol, rhs: Other) -> Bool {
+func == <Other: BinaryInteger>(lhs: OpCodeProtocol, rhs: Other) -> Bool {
     return lhs.value == rhs
 }
-public func == <Other: BinaryInteger>(lhs: Other, rhs: OpCodeProtocol) -> Bool {
+func == <Other: BinaryInteger>(lhs: Other, rhs: OpCodeProtocol) -> Bool {
     return lhs == rhs.value
 }
 
 // !=
-public func != (lhs: OpCodeProtocol, rhs: OpCodeProtocol) -> Bool {
+func != (lhs: OpCodeProtocol, rhs: OpCodeProtocol) -> Bool {
     return lhs.value != rhs.value
 }
-public func != <Other: BinaryInteger>(lhs: OpCodeProtocol, rhs: Other) -> Bool {
+func != <Other: BinaryInteger>(lhs: OpCodeProtocol, rhs: Other) -> Bool {
     return lhs.value != rhs
 }
-public func != <Other: BinaryInteger>(lhs: Other, rhs: OpCodeProtocol) -> Bool {
+func != <Other: BinaryInteger>(lhs: Other, rhs: OpCodeProtocol) -> Bool {
     return lhs != rhs.value
 }
 
 // >
-public func > (lhs: OpCodeProtocol, rhs: OpCodeProtocol) -> Bool {
+func > (lhs: OpCodeProtocol, rhs: OpCodeProtocol) -> Bool {
     return lhs.value > rhs.value
 }
-public func > <Other: BinaryInteger>(lhs: OpCodeProtocol, rhs: Other) -> Bool {
+func > <Other: BinaryInteger>(lhs: OpCodeProtocol, rhs: Other) -> Bool {
     return lhs.value > rhs
 }
-public func > <Other: BinaryInteger>(lhs: Other, rhs: OpCodeProtocol) -> Bool {
+func > <Other: BinaryInteger>(lhs: Other, rhs: OpCodeProtocol) -> Bool {
     return lhs > rhs.value
 }
 
 // <
-public func < (lhs: OpCodeProtocol, rhs: OpCodeProtocol) -> Bool {
+func < (lhs: OpCodeProtocol, rhs: OpCodeProtocol) -> Bool {
     return lhs.value < rhs.value
 }
-public func < <Other: BinaryInteger>(lhs: OpCodeProtocol, rhs: Other) -> Bool {
+func < <Other: BinaryInteger>(lhs: OpCodeProtocol, rhs: Other) -> Bool {
     return lhs.value < rhs
 }
-public func < <Other: BinaryInteger>(lhs: Other, rhs: OpCodeProtocol) -> Bool {
+func < <Other: BinaryInteger>(lhs: Other, rhs: OpCodeProtocol) -> Bool {
     return lhs < rhs.value
 }
 
 // >=
-public func >= (lhs: OpCodeProtocol, rhs: OpCodeProtocol) -> Bool {
+func >= (lhs: OpCodeProtocol, rhs: OpCodeProtocol) -> Bool {
     return lhs.value >= rhs.value
 }
 
 // <=
-public func <= (lhs: OpCodeProtocol, rhs: OpCodeProtocol) -> Bool {
+func <= (lhs: OpCodeProtocol, rhs: OpCodeProtocol) -> Bool {
     return lhs.value <= rhs.value
 }
 
 // ...
-public func ... (lhs: OpCodeProtocol, rhs: OpCodeProtocol) -> Range<UInt8> {
+func ... (lhs: OpCodeProtocol, rhs: OpCodeProtocol) -> Range<UInt8> {
     return Range(lhs.value...rhs.value)
 }
 
 // ~=
-public func ~= (pattern: OpCodeProtocol, op: OpCodeProtocol) -> Bool {
+func ~= (pattern: OpCodeProtocol, op: OpCodeProtocol) -> Bool {
     return pattern == op
 }
-public func ~= (pattern: Range<UInt8>, op: OpCodeProtocol) -> Bool {
+func ~= (pattern: Range<UInt8>, op: OpCodeProtocol) -> Bool {
     return pattern ~= op.value
 }

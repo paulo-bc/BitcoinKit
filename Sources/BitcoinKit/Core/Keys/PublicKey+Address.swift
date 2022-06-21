@@ -25,7 +25,7 @@
 import Foundation
 
 extension PublicKey {
-    public func toBitcoinAddress() -> BitcoinAddress {
+    func toBitcoinAddress() -> BitcoinAddress {
         return try! BitcoinAddress(data: pubkeyHash, hashType: .pubkeyHash, network: network)
     }
 }

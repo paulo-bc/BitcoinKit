@@ -2,7 +2,7 @@ import Foundation
 
 // By Martin R
 // https://stackoverflow.com/users/1187415/martin-r
-public extension RIPEMD160 {
+extension RIPEMD160 {
 
     static func hmac(key: Data, message: Data) -> Data {
 

@@ -29,11 +29,11 @@ struct UInt256 {
 	enum UInt256Error: Error {
 		case invalidDataSize
 	}
-	public static var max: UInt256 {
+	static var max: UInt256 {
 		return UInt256(UInt64.max, UInt64.max, UInt64.max, UInt64.max)
 	}
-	public static var bitWidth: Int { return 256 }
-	public static let byteWidth = UInt256.bitWidth / 8
+	static var bitWidth: Int { return 256 }
+	static let byteWidth = UInt256.bitWidth / 8
 	static let elementCount = byteWidth / 8
 
 	// e0 is lowest digit (UInt64 value is LittleEndian)
@@ -43,7 +43,7 @@ struct UInt256 {
 	private var e2: UInt64
 	private var e3: UInt64
 
-	public static let zero = UInt256()
+	static let zero = UInt256()
 
 	init() {
 		e0 = 0
@@ -81,36 +81,36 @@ struct UInt256 {
 		self.init(data: Data(data))
 	}
 
-	public init(_ val: UInt) {
+	init(_ val: UInt) {
 		// set to lowest digit
 		self = UInt256(UInt64(val), 0, 0, 0)
 	}
 
-	public init(_ val: UInt64) {
+	init(_ val: UInt64) {
 		self = UInt256(val, 0, 0, 0)
 	}
 
-	public init(_ val: UInt32) {
+	init(_ val: UInt32) {
 		self = UInt256(UInt64(val))
 	}
 
-	public init(_ val: UInt16) {
+	init(_ val: UInt16) {
 		self = UInt256(UInt64(val))
 	}
 
-	public init(_ val: UInt8) {
+	init(_ val: UInt8) {
 		self = UInt256(UInt64(val))
 	}
 }
 
 extension UInt256: CustomDebugStringConvertible {
-	public var debugDescription: String {
+	var debugDescription: String {
 		return self.hex
 	}
 }
 
 extension UInt256: Equatable {
-	public static func == (lhs: UInt256, rhs: UInt256) -> Bool {
+	static func == (lhs: UInt256, rhs: UInt256) -> Bool {
 		if lhs.e0 != rhs.e0 {
             return false
         } else if lhs.e1 != rhs.e1 {
@@ -125,7 +125,7 @@ extension UInt256: Equatable {
 }
 
 extension UInt256: Comparable {
-	public static func < (lhs: UInt256, rhs: UInt256) -> Bool {
+	static func < (lhs: UInt256, rhs: UInt256) -> Bool {
 		// compare higest digit at first
 		if lhs.e3 != rhs.e3 {
             return lhs.e3 < rhs.e3
@@ -143,7 +143,7 @@ extension UInt256: Comparable {
 
 extension UInt64 {
 	// MSB representation
-	public var hex: String {
+	var hex: String {
         let high: UInt64 = (self & 0xffffffff00000000) >> 32
         let low: UInt64 = self & 0x00000000ffffffff
         return String(format: "%08x", high) + String(format: "%08x", low)
@@ -152,13 +152,13 @@ extension UInt64 {
 
 extension UInt256 {
 	// MSB representation
-	public var hex: String {
+	var hex: String {
 		return [e3, e2, e1, e0].map({ $0.hex }).joined(separator: "")
 	}
 }
 
 extension UInt256 {
-    public var data: Data {
+    var data: Data {
 		// little endian cast
 		return Data(from: e0) + Data(from: e1) + Data(from: e2) + Data(from: e3)
     }
@@ -170,7 +170,7 @@ protocol BitShiftOperator {
 }
 
 extension UInt256: BitShiftOperator {
-	public static func >> <RHS>(lhs: UInt256, rhs: RHS) -> UInt256 where RHS: UnsignedInteger {
+	static func >> <RHS>(lhs: UInt256, rhs: RHS) -> UInt256 where RHS: UnsignedInteger {
 		if rhs < 64 {
 			var v = UInt256()
 			let mask = bitValue(bit: UInt(rhs))
@@ -210,7 +210,7 @@ extension UInt256: BitShiftOperator {
 		}
 	}
 
-	public static func << <RHS>(lhs: UInt256, rhs: RHS) -> UInt256 where RHS: UnsignedInteger {
+	static func << <RHS>(lhs: UInt256, rhs: RHS) -> UInt256 where RHS: UnsignedInteger {
 		if rhs < 64 {
 			var v = UInt256()
 			let rev = rhs

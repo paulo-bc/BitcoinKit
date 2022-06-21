@@ -25,7 +25,7 @@
 import XCTest
 @testable import YenomBitcoinKit
 
-class SerializationTests: XCTestCase {
+class SerializationTests: BaseTestCase {
     override func setUp() {
         super.setUp()
     }

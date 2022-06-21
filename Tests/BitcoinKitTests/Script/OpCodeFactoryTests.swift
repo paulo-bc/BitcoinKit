@@ -25,7 +25,7 @@
 import XCTest
 @testable import YenomBitcoinKit
 
-class OpCodeFactoryTests: XCTestCase {
+class OpCodeFactoryTests: BaseTestCase {
     func testGetWithValue() {
         assert(OpCodeFactory.get(with: 0x00), OpCode.OP_0)
         assert(OpCodeFactory.get(with: 0x4c), OpCode.OP_PUSHDATA1)

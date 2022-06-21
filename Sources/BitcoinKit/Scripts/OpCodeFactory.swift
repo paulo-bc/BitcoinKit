@@ -27,7 +27,7 @@ import Foundation
 /**
  This struct represents a factory that creates OpCodes from integers or strings.
  */
-public struct OpCodeFactory {
+struct OpCodeFactory {
 
     /**
      Returns the OpCode which a given UInt8 value.
@@ -37,7 +37,7 @@ public struct OpCodeFactory {
      
      - returns: The OpCode corresponding to value
     */
-    public static func get(with value: UInt8) -> OpCode {
+    static func get(with value: UInt8) -> OpCode {
         guard let item = (OpCode.list.first { $0.value == value }) else {
             return .OP_INVALIDOPCODE
         }
@@ -52,7 +52,7 @@ public struct OpCodeFactory {
      
      - returns: The OpCode corresponding to name
      */
-    public static func get(with name: String) -> OpCode {
+    static func get(with name: String) -> OpCode {
         guard let item = (OpCode.list.first { $0.name == name }) else {
             return .OP_INVALIDOPCODE
         }
@@ -67,8 +67,8 @@ public struct OpCodeFactory {
  
      - returns: The OpCode corresponding to smallInteger
     */
-    public typealias SmallInteger = Int
-    public static func opcode(for smallInteger: SmallInteger) -> OpCode {
+    typealias SmallInteger = Int
+    static func opcode(for smallInteger: SmallInteger) -> OpCode {
         switch smallInteger {
         case -1:
             return .OP_1NEGATE
@@ -89,7 +89,7 @@ public struct OpCodeFactory {
      
      - returns: Int value correspondint to OpCode
     */
-    public static func smallInteger(from opcode: OpCode) -> SmallInteger {
+    static func smallInteger(from opcode: OpCode) -> SmallInteger {
         switch opcode {
         case .OP_1NEGATE:
             return -1

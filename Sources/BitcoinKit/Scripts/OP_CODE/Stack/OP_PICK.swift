@@ -25,13 +25,13 @@
 import Foundation
 
 // The item n back in the stack is copied to the top.
-public struct OpPick: OpCodeProtocol {
-    public var value: UInt8 { return 0x79 }
-    public var name: String { return "OP_PICK" }
+struct OpPick: OpCodeProtocol {
+    var value: UInt8 { return 0x79 }
+    var name: String { return "OP_PICK" }
 
     // input : xn ... x2 x1 x0 <n>
     // output : xn ... x2 x1 x0 xn
-    public func mainProcess(_ context: ScriptExecutionContext) throws {
+    func mainProcess(_ context: ScriptExecutionContext) throws {
         try context.assertStackHeightGreaterThanOrEqual(2)
         let n: Int32 = try context.number(at: -1)
         context.stack.removeLast()

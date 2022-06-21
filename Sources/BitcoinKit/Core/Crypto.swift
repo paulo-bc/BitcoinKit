@@ -26,40 +26,40 @@
 import Foundation
 import CryptoSwift
 
-public struct Crypto {
-    public static func sha1(_ data: Data) -> Data {
+struct Crypto {
+    static func sha1(_ data: Data) -> Data {
         return data.sha1()
     }
 
-    public static func sha256(_ data: Data) -> Data {
+    static func sha256(_ data: Data) -> Data {
         return data.sha256()
     }
 
-    public static func sha256sha256(_ data: Data) -> Data {
+    static func sha256sha256(_ data: Data) -> Data {
         return sha256(sha256(data))
     }
 
-    public static func ripemd160(_ data: Data) -> Data {
+    static func ripemd160(_ data: Data) -> Data {
         RIPEMD160.hash(message: data)
     }
 
-    public static func sha256ripemd160(_ data: Data) -> Data {
+    static func sha256ripemd160(_ data: Data) -> Data {
         return ripemd160(sha256(data))
     }
 
-    public static func hmacsha512(data: Data, key: Data) -> Data {
+    static func hmacsha512(data: Data, key: Data) -> Data {
         Data(try! HMAC(key: key.bytes, variant: .sha2(.sha512)).authenticate(data.bytes))
     }
 
-    public static func sign(_ data: Data, privateKey: PrivateKey) throws -> Data {
+    static func sign(_ data: Data, privateKey: PrivateKey) throws -> Data {
         return try _Crypto.signMessage(data, withPrivateKey: privateKey.data)
     }
 
-    public static func verifySignature(_ signature: Data, message: Data, publicKey: Data) throws -> Bool {
+    static func verifySignature(_ signature: Data, message: Data, publicKey: Data) throws -> Bool {
         try _Crypto.verifySignature(signature, message: message, publicKey: publicKey)
     }
 
-    public static func verifySigData(for tx: Transaction, inputIndex: Int, utxo: TransactionOutput, sigData: Data, pubKeyData: Data) throws -> Bool {
+    static func verifySigData(for tx: Transaction, inputIndex: Int, utxo: TransactionOutput, sigData: Data, pubKeyData: Data) throws -> Bool {
         // Hash type is one byte tacked on to the end of the signature. So the signature shouldn't be empty.
         guard !sigData.isEmpty else {
             throw ScriptMachineError.error("SigData is empty.")
@@ -81,7 +81,7 @@ public struct Crypto {
     }
 }
 
-public enum CryptoError: Error {
+enum CryptoError: Error {
     case signFailed
     case noEnoughSpace
     case signatureParseFailed

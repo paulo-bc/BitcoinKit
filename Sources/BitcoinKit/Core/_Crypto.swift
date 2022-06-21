@@ -10,8 +10,8 @@ import Foundation
 import CryptoSwift
 import secp256k1
 
-public class _Crypto {
-    public static func signMessage(_ data: Data, withPrivateKey privateKey: Data) throws -> Data {
+class _Crypto {
+    static func signMessage(_ data: Data, withPrivateKey privateKey: Data) throws -> Data {
         let ctx = secp256k1_context_create(UInt32(SECP256K1_CONTEXT_SIGN))!
         defer { secp256k1_context_destroy(ctx) }
         
@@ -49,7 +49,7 @@ public class _Crypto {
         return der
     }
     
-    public static func verifySignature(_ signature: Data, message: Data, publicKey: Data) throws -> Bool {
+    static func verifySignature(_ signature: Data, message: Data, publicKey: Data) throws -> Bool {
         let ctx = secp256k1_context_create(UInt32(SECP256K1_CONTEXT_VERIFY))!
         defer { secp256k1_context_destroy(ctx) }
         
@@ -90,7 +90,7 @@ public class _Crypto {
         return true
     }
     
-    public enum CryptoError: Error {
+    enum CryptoError: Error {
         case signFailed
         case noEnoughSpace
         case signatureParseFailed

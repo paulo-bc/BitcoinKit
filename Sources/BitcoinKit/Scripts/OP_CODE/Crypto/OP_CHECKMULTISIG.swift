@@ -32,13 +32,13 @@ import Foundation
 // placed in the scriptSig using the same order as their corresponding public keys were placed in the
 // scriptPubKey or redeemScript. If all signatures are valid, 1 is returned, 0 otherwise. Due to a bug,
 // one extra unused value is removed from the stack.
-public struct OpCheckMultiSig: OpCodeProtocol {
-    public var value: UInt8 { return 0xae }
-    public var name: String { return "OP_CHECKMULTISIG" }
+struct OpCheckMultiSig: OpCodeProtocol {
+    var value: UInt8 { return 0xae }
+    var name: String { return "OP_CHECKMULTISIG" }
 
     // input : x sig1 sig2 ... <number of signatures> pub1 pub2 <number of public keys>
     // output : true / false
-     public func mainProcess(_ context: ScriptExecutionContext) throws {
+     func mainProcess(_ context: ScriptExecutionContext) throws {
 
         // Get numPublicKeys with validation
         try context.assertStackHeightGreaterThanOrEqual(1)

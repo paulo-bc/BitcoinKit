@@ -26,8 +26,8 @@ import Foundation
 import secp256k1
 
 // swiftlint:disable:next type_name
-public class _SwiftKey {
-	public static func computePublicKey(fromPrivateKey privateKey: Data, compression: Bool) -> Data {
+class _SwiftKey {
+	static func computePublicKey(fromPrivateKey privateKey: Data, compression: Bool) -> Data {
 		guard let ctx = secp256k1_context_create(UInt32(SECP256K1_CONTEXT_SIGN)) else {
 			return Data()
 		}

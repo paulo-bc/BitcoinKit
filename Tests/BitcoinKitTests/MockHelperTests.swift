@@ -25,7 +25,7 @@
 import XCTest
 @testable import YenomBitcoinKit
 
-class MockHelperTests: XCTestCase {
+class MockHelperTests: BaseTestCase {
     // MARK: - 1 of 3 Multi-Sig [ABC]
     // MARK: Standard Multi-Sig
     struct Standard1of3 {

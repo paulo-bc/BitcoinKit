@@ -25,13 +25,13 @@
 import Foundation
 
 // Marks transaction as invalid if the relative lock time of the input (enforced by BIP 0068 with nSequence) is not equal to or longer than the value of the top stack item. The precise semantics are described in BIP 0112.
-public struct OpCheckSequenceVerify: OpCodeProtocol {
-    public var value: UInt8 { return 0xb2 }
-    public var name: String { return "OP_CHECKSEQUENCEVERIFY" }
+struct OpCheckSequenceVerify: OpCodeProtocol {
+    var value: UInt8 { return 0xb2 }
+    var name: String { return "OP_CHECKSEQUENCEVERIFY" }
 
     // input : x
     // output : x / fail
-    public func mainProcess(_ context: ScriptExecutionContext) throws {
+    func mainProcess(_ context: ScriptExecutionContext) throws {
         try context.assertStackHeightGreaterThanOrEqual(1)
 
         // nLockTime should be Int5

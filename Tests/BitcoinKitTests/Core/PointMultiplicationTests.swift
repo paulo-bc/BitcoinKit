@@ -26,7 +26,7 @@ import Foundation
 import XCTest
 @testable import YenomBitcoinKit
 
-class PointMultiplicationTests: XCTestCase {
+class PointMultiplicationTests: BaseTestCase {
     func testPointMultiplication() {
         let gX = Data([
             0x79, 0xBE, 0x66, 0x7E, 0xF9, 0xDC, 0xBB, 0xAC,

@@ -25,7 +25,7 @@
 import XCTest
 @testable import YenomBitcoinKit
 
-class Bech32Tetst: XCTestCase {
+class Bech32Tetst: BaseTestCase {
     
     func testAll() {
         // invalid strings

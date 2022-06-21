@@ -24,25 +24,25 @@
 
 import Foundation
 
-public extension BitcoinAddress {
+extension BitcoinAddress {
     /// An object that represents the version byte of a cashaddr.
     ///
     /// The most signficant bit is reserved and must be 0. The 4 next bits indicate the type of address and the 3 least significant bits indicate the size of the hash.
     /// https://www.bitcoincash.org/spec/cashaddr.html
     struct VersionByte {
         /// Version byte raw value
-        public let rawValue: UInt8
+        let rawValue: UInt8
         /// Hash type (P2PKH or P2SH)
-        public let hashType: HashType
+        let hashType: HashType
         /// Hash Size
-        public let hashSize: HashSize
+        let hashSize: HashSize
 
         /// Creates a new VersionByte instance from type and size.
         ///
         /// - Parameters:
         ///   - hashType: The type of the hash
         ///   - hashSize: The size of the hash
-        public init(_ hashType: HashType, _ hashSize: HashSize) {
+        init(_ hashType: HashType, _ hashSize: HashSize) {
             self.rawValue = hashType.rawValue + hashSize.rawValue
             self.hashType = hashType
             self.hashSize = hashSize
@@ -52,7 +52,7 @@ public extension BitcoinAddress {
         ///
         /// - Parameters:
         ///   - rawValue: The actual version byte
-        public init?(_ rawValue: UInt8) {
+        init?(_ rawValue: UInt8) {
             // X------- (The first bit) is zero
             // -XXXX--- (Next four bits) are type bits
             // -----XXX (The least three bits) are size bits
@@ -77,7 +77,7 @@ public extension BitcoinAddress {
 
 extension BitcoinAddress.VersionByte: Equatable {
     // swiftlint:disable operator_whitespace
-    public static func ==(lhs: BitcoinAddress.VersionByte, rhs: BitcoinAddress.VersionByte) -> Bool {
+    static func ==(lhs: BitcoinAddress.VersionByte, rhs: BitcoinAddress.VersionByte) -> Bool {
         return lhs.rawValue == rhs.rawValue
     }
 }

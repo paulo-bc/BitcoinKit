@@ -29,8 +29,8 @@ import Foundation
 /// // Select a unspent transactions to spend
 /// let selected = UnspentTransactionSelector.select(from: unspentTransactions, targetValue: 1000, feePerByte: 1)
 /// ```
-public struct UnspentTransactionSelector {
-    public static func select(from unspentTransactions: [UnspentTransaction], targetValue: UInt64, feePerByte: UInt64) -> [UnspentTransaction] {
+struct UnspentTransactionSelector {
+    static func select(from unspentTransactions: [UnspentTransaction], targetValue: UInt64, feePerByte: UInt64) -> [UnspentTransaction] {
         let dustValue: UInt64 = FeeCalculator.calculateDust(feePerByte: feePerByte)
 
         // if target value is dust, return empty array
