@@ -23,7 +23,7 @@
 //
 
 import Foundation
-@testable import BitcoinKit
+@testable import YenomBitcoinKit
 
 public class MockKey {
     public static let keyA: MockKey = MockKey(wif: "L1WFAgk5LxC5NLfuTeADvJ5nm3ooV3cKei5Yi9LJ8ENDfGMBZjdW")

@@ -24,7 +24,7 @@
 
 import Foundation
 import XCTest
-@testable import BitcoinKit
+@testable import YenomBitcoinKit
 
 class PointMultiplicationTests: XCTestCase {
     func testPointMultiplication() {

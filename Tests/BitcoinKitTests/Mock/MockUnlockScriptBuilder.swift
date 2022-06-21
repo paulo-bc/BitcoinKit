@@ -23,7 +23,7 @@
 //
 
 import Foundation
-@testable import BitcoinKit
+@testable import YenomBitcoinKit
 
 public typealias SigKeyPair = (signature: Data, key: PublicKey)
 

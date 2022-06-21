@@ -23,7 +23,7 @@
 //
 
 import XCTest
-@testable import BitcoinKit
+@testable import YenomBitcoinKit
 
 func buildUnspent(_ value: UInt64) -> UnspentTransaction {
     let outpoint: TransactionOutPoint = TransactionOutPoint(hash: Data(), index: 0)

@@ -24,7 +24,7 @@
 //
 
 import XCTest
-@testable import BitcoinKit
+@testable import YenomBitcoinKit
 
 class LegacyAddressTests: XCTestCase {
     func testAddress() {

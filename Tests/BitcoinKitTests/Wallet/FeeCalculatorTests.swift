@@ -23,7 +23,7 @@
 //
 
 import XCTest
-@testable import BitcoinKit
+@testable import YenomBitcoinKit
 
 final class FeeCalculatorTests: XCTestCase {
     func testCalculateDust() {

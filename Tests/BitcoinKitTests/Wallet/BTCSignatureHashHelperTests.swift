@@ -23,7 +23,7 @@
 //
 
 import XCTest
-@testable import BitcoinKit
+@testable import YenomBitcoinKit
 
 class BTCSignatureHashHelperTests: XCTestCase {
     var transaction: Transaction!

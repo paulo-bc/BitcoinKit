@@ -23,7 +23,7 @@
 //
 
 import XCTest
-@testable import BitcoinKit
+@testable import YenomBitcoinKit
 
 class AddressFactoryTests: XCTestCase {
     func testAddressFactory() {

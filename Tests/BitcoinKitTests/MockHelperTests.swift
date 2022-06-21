@@ -23,7 +23,7 @@
 //
 
 import XCTest
-@testable import BitcoinKit
+@testable import YenomBitcoinKit
 
 class MockHelperTests: XCTestCase {
     // MARK: - 1 of 3 Multi-Sig [ABC]

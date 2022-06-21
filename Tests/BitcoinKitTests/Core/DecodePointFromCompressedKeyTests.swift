@@ -23,7 +23,7 @@
 //
 
 import Foundation
-@testable import BitcoinKit
+@testable import YenomBitcoinKit
 import XCTest
 
 class DecodePointTests: XCTestCase {

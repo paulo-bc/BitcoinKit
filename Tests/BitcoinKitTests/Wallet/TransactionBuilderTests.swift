@@ -23,7 +23,7 @@
 //
 
 import XCTest
-@testable import BitcoinKit
+@testable import YenomBitcoinKit
 
 class TransactionBuilderTests: XCTestCase {
     func testBTCTransaction() {
