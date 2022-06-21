@@ -32,4 +32,10 @@ public struct DustMixing {
     public let amount: UInt64
     /// OutputScript to send the amount
     public let outputScript: String
+
+    public init(unspentTransaction: UnspentTransaction, amount: UInt64, outputScript: String) {
+        self.unspentTransaction = unspentTransaction
+        self.amount = amount
+        self.outputScript = outputScript
+    }
 }
