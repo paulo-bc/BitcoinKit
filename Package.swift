@@ -2,7 +2,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "BitcoinKit",
+    name: "YenomBitcoinKit",
     platforms: [
         .macOS(.v10_12), .iOS(.v14)
     ],
