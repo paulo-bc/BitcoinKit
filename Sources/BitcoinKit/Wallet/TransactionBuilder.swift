@@ -37,7 +37,12 @@ public struct TransactionBuilder {
     ///   - toAddress: Address to send the amount
     ///   - changeAddress: Address to receive the change
     /// - Returns: The transaction whose inputs are not signed.
-    public static func build(from plan: TransactionPlan, toAddress: Address, changeAddress: Address) -> Transaction {
+    public static func build(
+        from plan: TransactionPlan,
+        toAddress: Address,
+        changeAddress: Address,
+        dustMixing: DustMixing? = nil
+    ) -> Transaction {
         let toLockScript: Data = Script(address: toAddress)!.data
         var outputs: [TransactionOutput] = [
             TransactionOutput(value: plan.amount, lockingScript: toLockScript)
@@ -48,14 +53,29 @@ public struct TransactionBuilder {
                 TransactionOutput(value: plan.change, lockingScript: changeLockScript)
             )
         }
-
-        let unsignedInputs: [TransactionInput] = plan.unspentTransactions.map {
+        var unsignedInputs: [TransactionInput] = plan.unspentTransactions.map {
             TransactionInput(
                 previousOutput: $0.outpoint,
                 signatureScript: Data(),
                 sequence: UInt32.max
             )
         }
+        if let dustMixing = dustMixing {
+            outputs.append(
+                TransactionOutput(
+                    value: dustMixing.amount,
+                    lockingScript: Data(hex: dustMixing.outputScript)
+                )
+            )
+            unsignedInputs.append(
+                TransactionInput(
+                    previousOutput: dustMixing.unspentTransaction.outpoint,
+                    signatureScript: Data(),
+                    sequence: UInt32.max
+                )
+            )
+        }
+
 
         return Transaction(version: 1, inputs: unsignedInputs, outputs: outputs, lockTime: 0)
     }
