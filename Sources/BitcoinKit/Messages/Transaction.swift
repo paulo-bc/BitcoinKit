@@ -48,7 +48,7 @@ public struct Transaction {
     /// The block number or timestamp at which this transaction is unlocked:
     let lockTime: UInt32
 
-    var txHash: Data {
+    public var txHash: Data {
         return Crypto.sha256sha256(serialized())
     }
 
@@ -63,7 +63,7 @@ public struct Transaction {
         self.lockTime = lockTime
     }
 
-    func serialized() -> Data {
+    public func serialized() -> Data {
         var data = Data()
         data += version
         data += txInCount.serialized()
