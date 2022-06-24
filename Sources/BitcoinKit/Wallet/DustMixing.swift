@@ -24,7 +24,7 @@
 
 import Foundation
 
-struct DustMixing {
+public struct DustMixing {
 
     /// Unspent transaction.
     let unspentTransaction: UnspentTransaction
@@ -33,7 +33,7 @@ struct DustMixing {
     /// OutputScript to send the amount
     let outputScript: String
 
-    init(unspentTransaction: UnspentTransaction, amount: UInt64, outputScript: String) {
+    public init(unspentTransaction: UnspentTransaction, amount: UInt64, outputScript: String) {
         self.unspentTransaction = unspentTransaction
         self.amount = amount
         self.outputScript = outputScript

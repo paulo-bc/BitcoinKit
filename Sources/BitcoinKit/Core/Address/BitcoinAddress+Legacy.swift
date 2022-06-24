@@ -26,7 +26,7 @@ import Foundation
 
 extension BitcoinAddress {
     /// Base58Check encoded bitcoin address format
-    var legacy: String {
+    public var legacy: String {
         switch hashType {
         case .pubkeyHash:
             return Base58Check.encode([network.pubkeyhash] + data)

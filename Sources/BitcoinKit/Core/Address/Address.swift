@@ -24,7 +24,7 @@
 
 import Foundation
 
-protocol Address: CustomStringConvertible {
+public protocol Address: CustomStringConvertible {
     var network: Network { get }
     var hashType: BitcoinAddress.HashType { get }
     var data: Data { get }

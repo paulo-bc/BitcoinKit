@@ -31,7 +31,7 @@ extension BitcoinAddress {
     /// So the rawValue should be 0, 8, 16, ..., 120. However, only 0 and 8 are
     /// supported for now. Further types will be added as new features are added.
     /// https://www.bitcoincash.org/spec/cashaddr.html
-    enum HashType: UInt8 {
+    public enum HashType: UInt8 {
         case pubkeyHash = 0
         case scriptHash = 8
     }

@@ -30,7 +30,7 @@ extension BitcoinAddress {
     }
 
     /// Bech32 encoded bitcoincash address format
-    var cashaddr: String {
+    public var cashaddr: String {
         let scheme: BitcoinScheme
         switch network {
         case .mainnetBCH: scheme = .bitcoincash
@@ -55,7 +55,7 @@ extension BitcoinAddress {
     ///
     /// - Parameter bech32: Bech32 encoded String value to use as the source of the new
     ///   instance. It must come with scheme "bitcioncash:" or "bchtest:".
-    init(cashaddr: String) throws {
+    public init(cashaddr: String) throws {
         // prefix validation and decode
         guard let decoded = Bech32.decode(cashaddr) else {
             throw AddressError.invalid

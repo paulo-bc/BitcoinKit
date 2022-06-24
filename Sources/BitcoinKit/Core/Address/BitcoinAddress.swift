@@ -37,12 +37,12 @@ import Foundation
 /// let p2pkhAddress = try BitcoinAddress(data: pubkeyHash, type: .pubkeyHash, network: .mainnetBCH)
 /// let p2shAddress = try BitcoinAddress(data: scriptHash, type: .scriptHash, network: .mainnetBCH)
 /// ```
-struct BitcoinAddress {
-    let data: Data
-    let network: Network
+public struct BitcoinAddress {
+    public let data: Data
+    public let network: Network
 
     // Bitcoin Address parameter
-    let hashType: HashType
+    public let hashType: HashType
     let hashSize: HashSize
 
     /// Creates a new BitcoinAddress instance with raw parameters.
@@ -74,7 +74,7 @@ struct BitcoinAddress {
 }
 
 extension BitcoinAddress: CustomStringConvertible {
-    var description: String {
+    public var description: String {
         switch network {
         case .mainnetBCH, .testnetBCH:
             return cashaddr
@@ -85,7 +85,7 @@ extension BitcoinAddress: CustomStringConvertible {
 }
 
 extension BitcoinAddress: Equatable {
-    static func == (lhs: BitcoinAddress, rhs: BitcoinAddress) -> Bool {
+    public static func == (lhs: BitcoinAddress, rhs: BitcoinAddress) -> Bool {
         return lhs.data == rhs.data
             && lhs.hashType == rhs.hashType
             && lhs.hashSize == rhs.hashSize
