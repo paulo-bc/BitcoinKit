@@ -1,17 +1,30 @@
 // swift-tools-version: 5.6
+
 import PackageDescription
 
 let package = Package(
     name: "YenomBitcoinKit",
     platforms: [
-        .macOS(.v10_12), .iOS(.v14)
+        .iOS(.v14),
+        .macOS(.v11),
+        .watchOS(.v7),
+        .tvOS(.v14)
     ],
     products: [
-        .library(name: "YenomBitcoinKit", targets: ["YenomBitcoinKit"])
+        .library(
+            name: "YenomBitcoinKit",
+            targets: ["YenomBitcoinKit"]
+        )
     ],
     dependencies: [
-        .package(url: "https://github.com/krzyzanowskim/CryptoSwift.git", .upToNextMinor(from: "1.4.2")),
-        .package(url: "https://github.com/Boilertalk/secp256k1.swift", .upToNextMinor(from: "0.1.6"))
+        .package(
+            url: "https://github.com/krzyzanowskim/CryptoSwift.git",
+            .upToNextMinor(from: "1.5.1")
+        ),
+        .package(
+            url: "https://github.com/Boilertalk/secp256k1.swift.git",
+            .upToNextMinor(from: "0.1.6")
+        )
     ],
     targets: [
         .target(
