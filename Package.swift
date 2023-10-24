@@ -1,14 +1,14 @@
-// swift-tools-version: 5.6
+// swift-tools-version: 5.8
 
 import PackageDescription
 
 let package = Package(
     name: "YenomBitcoinKit",
     platforms: [
-        .iOS(.v14),
-        .macOS(.v11),
-        .watchOS(.v7),
-        .tvOS(.v14)
+        .iOS(.v15),
+        .macOS(.v13),
+        .watchOS(.v8),
+        .tvOS(.v15)
     ],
     products: [
         .library(
@@ -19,11 +19,11 @@ let package = Package(
     dependencies: [
         .package(
             url: "https://github.com/krzyzanowskim/CryptoSwift.git",
-            .upToNextMinor(from: "1.5.1")
+            from: "1.8.0"
         ),
         .package(
             url: "https://github.com/Boilertalk/secp256k1.swift.git",
-            .upToNextMinor(from: "0.1.6")
+            from: "0.1.7"
         )
     ],
     targets: [
@@ -46,6 +46,5 @@ let package = Package(
                 .copy("Resources/block413567.raw")
             ]
         )
-    ],
-    swiftLanguageVersions: [.v5]
+    ]
 )
